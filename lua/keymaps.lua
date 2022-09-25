@@ -32,6 +32,7 @@ keymap("n", "<C-f>", "<cmd>lua require('telescope.builtin').find_files()<cr>", o
 keymap("n", "<C-g>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers({sort_lastused=true, initial_mode=normal})<cr>", opts)
 keymap("n", "<C-c>", "<cmd>lua require('telescope.builtin').commands()<cr>", opts)
+keymap("n", "<C-P>", "<cmd>Telescope projects<cr>", opts)
 keymap("n", "-", "<cmd>Telescope luasnip<cr>", opts)
 keymap("i", "<C-->", "<cmd>Telescope luasnip<cr>", opts)
 keymap("n", "<leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
@@ -39,8 +40,8 @@ keymap("n", "<leader>S", "<cmd>lua require('telescope.builtin').lsp_workspace_sy
 
 --dap
 vim.keymap.set("n", "<F5>", function() require('dap').continue() end, opts)
-vim.keymap.set("n", "<F10>", function() require('dap').step_over() end, opts)
-vim.keymap.set("n", "<F11>", function() require('dap').step_into() end, opts)
+vim.keymap.set("n", "<F6>", function() require('dap').step_over() end, opts)
+vim.keymap.set("n", "<F7>", function() require('dap').step_into() end, opts)
 vim.keymap.set("n", "<F12>", function() require('dap').step_out() end, opts)
 vim.keymap.set("n", "<Leader>b", function() require('dap').toggle_breakpoint() end, opts)
 vim.keymap.set("n", "<Leader>B", function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, opts)
@@ -60,8 +61,10 @@ keymap("n", "ga", "<Plug>(EasyAlign)", opts)
 keymap("x", "ga", "<Plug>(EasyAlign)", opts)
 
 --diffview(git)
-keymap("n", "<leader>do", ":DiffviewOpen<CR>", opts)
-keymap("n", "<leader>dc", ":DiffviewClose<CR>", opts)
+keymap("n", "<leader>gv", ":DiffviewOpen<CR>", opts)
+keymap("n", "<leader>gc", ":DiffviewClose<CR>", opts)
+keymap("n", "<leader>gs", ":Git<CR>", opts)
+keymap("n", "<leader>gl", ":0Gclog<CR>", opts)
 
 --stage hunks, undo, next hunk
 keymap("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
@@ -91,51 +94,51 @@ vim.diagnostic.config({
 vim.api.nvim_set_keymap("n", "mr", ":Neomake!<CR>", opts)
 vim.api.nvim_set_keymap("n", "mc", ":NeomakeSh ./.configure.sh<CR>", opts)
 
--- vim.keymap.set("n", "<F12>", function()
---     local OFF = 0 -- also disable update while typing. Enable popup diagnostic on "next error map"
---     local VLINES = 1 -- also enable update while typing
---     local VTEXT = 2 -- also enable updates while typing
---
---     local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
---     local virtual_text_enabled = vim.diagnostic.config().virtual_text
---
---     local mode
---     if virtual_lines_enabled then
---         mode = VLINES
---     elseif virtual_text_enabled then
---         mode = VTEXT
---     else
---         mode = OFF
---     end
---
---     mode = mode + 1
---     if mode > 2 then
---         mode = 0
---     end
---
---     if mode == OFF then
---         print(mode)
---         vim.diagnostic.config({
---             virtual_text = false,
---             virtual_lines = false,
---         })
---         vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev( {float=true} )<CR>", opts)
---         vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next( {float=true} )<CR>", opts)
---     elseif mode == VLINES then
---         print(mode)
---         vim.diagnostic.config({
---             virtual_text = false,
---             virtual_lines = true,
---         })
---         vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
---         vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next({float=false})<CR>", opts)
---     else
---         print(mode)
---         vim.diagnostic.config({
---             virtual_text = true,
---             virtual_lines = false,
---         })
---         vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
---         vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next({float=false})<CR>", opts)
---     end
--- end)
+vim.keymap.set("n", "<F12>", function()
+    local OFF = 0 -- also disable update while typing. Enable popup diagnostic on "next error map"
+    local VLINES = 1 -- also enable update while typing
+    local VTEXT = 2 -- also enable updates while typing
+
+    local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
+    local virtual_text_enabled = vim.diagnostic.config().virtual_text
+
+    local mode
+    if virtual_lines_enabled then
+        mode = VLINES
+    elseif virtual_text_enabled then
+        mode = VTEXT
+    else
+        mode = OFF
+    end
+
+    mode = mode + 1
+    if mode > 2 then
+        mode = 0
+    end
+
+    if mode == OFF then
+        print(mode)
+        vim.diagnostic.config({
+            virtual_text = false,
+            virtual_lines = false,
+        })
+        vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev( {float=true} )<CR>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next( {float=true} )<CR>", opts)
+    elseif mode == VLINES then
+        print(mode)
+        vim.diagnostic.config({
+            virtual_text = false,
+            virtual_lines = true,
+        })
+        vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next({float=false})<CR>", opts)
+    else
+        print(mode)
+        vim.diagnostic.config({
+            virtual_text = true,
+            virtual_lines = false,
+        })
+        vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next({float=false})<CR>", opts)
+    end
+end)

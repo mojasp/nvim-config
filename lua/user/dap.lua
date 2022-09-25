@@ -20,21 +20,21 @@ local sample_config = {
     runInTerminal = false,
 }
 
-local lcmdbug = {
-    name = "lcmdbug_config",
-    type = "lldb", -- matches the adapter
-    request = "launch", -- could also attach to a currently running process
-    program = "/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/examples/cpp_security/demo_instance",
-    cwd = "${workspaceFolder}/examples/cpp_security",
-    stopOnEntry = false,
-    args = { "instances/alice.toml" },
-    env = { "LD_LIBRARY_PATH=${workspaceFolder}/build/lcm" },
-    runInTerminal = false,
-}
+-- local lcmdbug = {
+--     name = "lcmdbug_config",
+--     type = "lldb", -- matches the adapter
+--     request = "launch", -- could also attach to a currently running process
+--     program = "/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/examples/cpp_security/demo_instance",
+--     cwd = "${workspaceFolder}/examples/cpp_security",
+--     stopOnEntry = false,
+--     args = { "instances/alice.toml" },
+--     env = { "LD_LIBRARY_PATH=${workspaceFolder}/build/lcm" },
+--     runInTerminal = false,
+-- }
 
 dap.configurations.cpp = {
-    lcmdbug,
-    -- sample_config
+    --lcmdbug
+    sample_config
 }
 
 -------------DAPUI CONFIGURATION----------------
