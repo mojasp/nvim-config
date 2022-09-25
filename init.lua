@@ -9,5 +9,4 @@ require('user')
 -- reenable
 vim.opt.shadafile = ""
 
-    -- longterm do debugger
-    -- latex plugin once needed
+-- latex plugin once needed

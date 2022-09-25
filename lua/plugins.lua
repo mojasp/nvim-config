@@ -203,6 +203,7 @@ return packer.startup(function(use)
                 -- When set to false, you will get a message when project.nvim changes your
                 -- directory.
                 silent_chdir = false,
+                exclude_dirs = {"~"},
             })
         end,
     })
@@ -284,7 +285,13 @@ return packer.startup(function(use)
         end,
     })
 
-    --TODO: setup debugger: Install these plugins, configure them, and you’re there: - nvim-dap - nvim-dap-ui - nvim-dap-virtual-text
+
+    -------------------------------
+    ------Debugger-----------------
+    -------------------------------
+    use("mfussenegger/nvim-dap")
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
