@@ -173,8 +173,8 @@ return packer.startup(function(use)
         "gaoDean/autolist.nvim",
         config = function()
             require("autolist").setup({
-                colon = { preferred = "-" },
-                invert = { ul_marker = "-" },
+                colon = { preferred = "*" },
+                invert = { ul_marker = "*", normal_mapping = "<leader>x"},
             })
         end,
     })
@@ -203,7 +203,7 @@ return packer.startup(function(use)
                 -- When set to false, you will get a message when project.nvim changes your
                 -- directory.
                 silent_chdir = false,
-                exclude_dirs = {"~"},
+                exclude_dirs = { "~" },
             })
         end,
     })
@@ -257,6 +257,7 @@ return packer.startup(function(use)
             require("auto-session").setup({
                 log_level = "error",
                 auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+                auto_session_enable_last_session = true,
             })
         end,
     })
@@ -285,12 +286,17 @@ return packer.startup(function(use)
         end,
     })
 
-
     -------------------------------
     ------Debugger-----------------
     -------------------------------
     use("mfussenegger/nvim-dap")
-    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    use({
+        "theHamsta/nvim-dap-virtual-text",
+        config = function()
+            require("nvim-dap-virtual-text").setup()
+        end,
+    })
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -32,7 +32,7 @@ keymap("n", "<C-f>", "<cmd>lua require('telescope.builtin').find_files()<cr>", o
 keymap("n", "<C-g>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers({sort_lastused=true, initial_mode=normal})<cr>", opts)
 keymap("n", "<C-c>", "<cmd>lua require('telescope.builtin').commands()<cr>", opts)
-keymap("n", "<C-P>", "<cmd>Telescope projects<cr>", opts)
+keymap("n", "<CS-P>", "<cmd>Telescope projects<cr>", opts)
 keymap("n", "-", "<cmd>Telescope luasnip<cr>", opts)
 keymap("i", "<C-->", "<cmd>Telescope luasnip<cr>", opts)
 keymap("n", "<leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
@@ -42,7 +42,7 @@ keymap("n", "<leader>S", "<cmd>lua require('telescope.builtin').lsp_workspace_sy
 vim.keymap.set("n", "<F5>", function() require('dap').continue() end, opts)
 vim.keymap.set("n", "<F6>", function() require('dap').step_over() end, opts)
 vim.keymap.set("n", "<F7>", function() require('dap').step_into() end, opts)
-vim.keymap.set("n", "<F12>", function() require('dap').step_out() end, opts)
+vim.keymap.set("n", "<F8>", function() require('dap').step_out() end, opts)
 vim.keymap.set("n", "<Leader>b", function() require('dap').toggle_breakpoint() end, opts)
 vim.keymap.set("n", "<Leader>B", function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, opts)
 vim.keymap.set("n", "<Leader>lp", function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, opts)
@@ -68,9 +68,12 @@ keymap("n", "<leader>gl", ":0Gclog<CR>", opts)
 
 --stage hunks, undo, next hunk
 keymap("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
+keymap("x", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
 keymap("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", opts)
 keymap("n", "<leader>hn", ":Gitsigns next_hunk<CR>", opts)
 keymap("n", "<leader>hp", ":Gitsigns prev_hunk<CR>", opts)
+keymap("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
+keymap("x", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
 
 -- diagnostics behaviour
 vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
