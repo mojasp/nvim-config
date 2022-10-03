@@ -24,6 +24,7 @@ vim.opt.softtabstop = 4
 vim.opt.cmdheight = 1
 
 vim.opt.relativenumber = true
+vim.opt.cmdheight=0
 
 vim.cmd([[
     " general

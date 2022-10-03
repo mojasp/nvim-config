@@ -169,14 +169,34 @@ return packer.startup(function(use)
             vim.fn["mkdp#util#install"]()
         end,
     })
+    use("vimwiki/vimwiki")
     use({
         "gaoDean/autolist.nvim",
         config = function()
             require("autolist").setup({
                 colon = { preferred = "*" },
-                invert = { ul_marker = "*", normal_mapping = "<leader>x"},
+                invert = { ul_marker = "*", normal_mapping = "<leader>x" },
             })
         end,
+    })
+
+    ----- MISC -----
+    use("mattn/calendar-vim")
+    use({
+        "KadoBOT/nvim-spotify",
+        requires = "nvim-telescope/telescope.nvim",
+        config = function()
+            local spotify = require("nvim-spotify")
+
+            spotify.setup({
+                -- default opts
+                status = {
+                    update_interval = 10000, -- the interval (ms) to check for what's currently playing
+                    format = "%s %t by %a", -- spotify-tui --format argument
+                },
+            })
+        end,
+        run = "make",
     })
 
     -----Git------
@@ -188,7 +208,19 @@ return packer.startup(function(use)
     })
     use("tpope/vim-fugitive")
     use("rbong/vim-flog")
-    use("sindrets/diffview.nvim")
+    use({
+        "sindrets/diffview.nvim",
+        config = function()
+            require("diffview").setup({
+                hooks = {
+                    diff_buf_read = function(bufnr)
+                        -- set nowrap in diffbuffer so the diff lines up
+                        vim.opt_local.wrap = false
+                    end,
+                },
+            })
+        end,
+    })
 
     use({
         "nvim-lualine/lualine.nvim",
