@@ -180,6 +180,8 @@ return packer.startup(function(use)
         end,
     })
 
+    use("lervag/vimtex")
+
     ----- MISC -----
     use("mattn/calendar-vim")
     use({

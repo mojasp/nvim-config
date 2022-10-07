@@ -50,6 +50,7 @@ vim.keymap.set("n", "<Leader>dr", function() require('dap').repl.open() end, opt
 vim.keymap.set("n", "<Leader>dl", function() require('dap').run_last() end, opts)
 vim.keymap.set("x", "<Leader>de", function() require('dapui').eval() end, opts)
 vim.keymap.set("n", "<Leader>de", function() require('dapui').eval() end, opts)
+vim.keymap.set("n", "<Leader>dt", function() require('dap').terminate() end, opts)
 vim.keymap.set("n", "<Leader>df", function() require('dapui').float_element() end, opts)
 vim.keymap.set("n", "<Leader>dc", function() require('dapui').close() end, opts)
 
