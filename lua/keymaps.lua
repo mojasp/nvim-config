@@ -9,6 +9,17 @@ vim.g.maplocalleader = ","
 
 keymap("n", "<F3>", ":set hlsearch!<CR>", opts)
 
+--use [,{,],} from english layout -- note: changing layout instead is better..
+local allmodes = {"n", "x", "i"}
+vim.keymap.set(allmodes, "ö", "[", opts)
+vim.keymap.set(allmodes, "Ö", "{", opts)
+vim.keymap.set(allmodes, "ä", "]", opts)
+vim.keymap.set(allmodes, "Ä", "}", opts)
+vim.keymap.set("n", "öö", "[[", opts)
+vim.keymap.set("n", "öä", "[]", opts)
+vim.keymap.set("n", "äö", "][", opts)
+vim.keymap.set("n", "ää", "]]", opts)
+
 --paste into new line
 keymap("n", "ü", ":pu<cr>", opts)
 keymap("n", "Ü", ":pu!<CR>", opts)
@@ -17,8 +28,8 @@ keymap("n", "Ü", ":pu!<CR>", opts)
 keymap("i", "<C-a>", "<Esc>A;<CR>", opts)
 
 --mappings for building and cleaning
-keymap("n", "<leader>m", ":Make!<cr>", opts)
-keymap("n", "<leader>c", ":Make! clean<cr>", opts)
+keymap("n", "<leader>m", ":Make!<CR><CR>", opts)
+keymap("n", "<leader>c", ":Make! clean<CR><CR>", opts)
 
 --navigate quickfix list
 keymap("n", "<C-n>", "<cmd>:cn<cr>", opts)
@@ -32,9 +43,9 @@ keymap("n", "<C-f>", "<cmd>lua require('telescope.builtin').find_files()<cr>", o
 keymap("n", "<C-g>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers({sort_lastused=true, initial_mode=normal})<cr>", opts)
 keymap("n", "<C-c>", "<cmd>lua require('telescope.builtin').commands()<cr>", opts)
-keymap("n", "<CS-P>", "<cmd>Telescope projects<cr>", opts)
-keymap("n", "-", "<cmd>Telescope luasnip<cr>", opts)
-keymap("i", "<C-->", "<cmd>Telescope luasnip<cr>", opts)
+keymap("n", "<C-ü>", "<cmd>Telescope projects<cr>", opts)
+keymap("n", "<C-l>", "<cmd>Telescope luasnip<cr>", opts)
+keymap("i", "<C-l>", "<cmd>Telescope luasnip<cr>", opts)
 keymap("n", "<leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
 keymap("n", "<leader>S", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", opts)
 
@@ -71,10 +82,13 @@ keymap("n", "<leader>gl", ":0Gclog<CR>", opts)
 keymap("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
 keymap("x", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
 keymap("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", opts)
-keymap("n", "<leader>hn", ":Gitsigns next_hunk<CR>", opts)
-keymap("n", "<leader>hp", ":Gitsigns prev_hunk<CR>", opts)
+keymap("n", "<leader>hn", ":Gitsigns next_hunk<CR><CR>", opts)
+keymap("n", "<leader>hp", ":Gitsigns prev_hunk<CR><CR>", opts)
 keymap("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
 keymap("x", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "mr", ":Neomake!<CR>", opts)
+vim.api.nvim_set_keymap("n", "mc", ":NeomakeSh ./.configure.sh<CR>", opts)
 
 -- diagnostics behaviour
 vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>lua vim.diagnostic.goto_prev({float=false})<CR>", opts)
@@ -94,9 +108,6 @@ vim.diagnostic.config({
         prefix = "",
     },
 })
-
-vim.api.nvim_set_keymap("n", "mr", ":Neomake!<CR>", opts)
-vim.api.nvim_set_keymap("n", "mc", ":NeomakeSh ./.configure.sh<CR>", opts)
 
 vim.keymap.set("n", "<F12>", function()
     local OFF = 0 -- also disable update while typing. Enable popup diagnostic on "next error map"

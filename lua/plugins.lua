@@ -60,6 +60,7 @@ return packer.startup(function(use)
         config = function()
             require("lsp_signature").setup({
                 toggle_key = "<C-s>",
+                select_signature_key = "<C-S>",
                 hint_enable = false,
             })
         end,
@@ -145,6 +146,7 @@ return packer.startup(function(use)
     use("tpope/vim-dispatch")
     use({
         "ojroques/nvim-buildme",
+        lock = true,
         config = function()
             require("buildme").setup({ wincmd = "vsplit" })
         end,
@@ -170,19 +172,22 @@ return packer.startup(function(use)
         end,
     })
     use("vimwiki/vimwiki")
+    use("tools-life/taskwiki")
     use({
         "gaoDean/autolist.nvim",
+        tag = "*",
         config = function()
-            require("autolist").setup({
-                colon = { preferred = "*" },
-                invert = { ul_marker = "*", normal_mapping = "<leader>x" },
-            })
+            require("autolist").setup({})
         end,
     })
 
     use("lervag/vimtex")
 
+    ------fold
+    use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+    --
     ----- MISC -----
+    --use("tpope/vim-vinegar")
     use("mattn/calendar-vim")
     use({
         "KadoBOT/nvim-spotify",
@@ -246,9 +251,6 @@ return packer.startup(function(use)
         requires = {
             "kyazdani42/nvim-web-devicons", -- optional, for file icons
         },
-        config = function()
-            require("nvim-tree").setup({})
-        end,
     })
     use({ "windwp/nvim-autopairs" })
     use({ "junegunn/vim-easy-align" })
