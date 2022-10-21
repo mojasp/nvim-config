@@ -18,7 +18,7 @@ require("gruvbox").setup({
 if vim.g.neovide then
     vim.cmd([[
         colorscheme kanagawa
-        set guifont=juliamono:h8
+        set guifont=JetBrains\ Mono:h8
         let g:neovide_transparency=0.85
         let g:neovide_refresh_rate=60
         let g:neovide_refresh_rate_idle=2

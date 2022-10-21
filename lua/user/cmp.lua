@@ -3,11 +3,6 @@ if not status_ok then
     return
 end
 
--- -- config for copilot
--- vim.g.copilot_no_tab_map = true
--- vim.g.copilot_assume_mapped = true
--- vim.g.copilot_tab_fallback = ""
-
 local has_words_before = function()
     -- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
     -- 	return false
@@ -82,7 +77,7 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
         { name = "luasnip" },
-        -- { name = "copilot" },
+        { name = "copilot" },
         { name = "path" },
         { name = "buffer" },
     },

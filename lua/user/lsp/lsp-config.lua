@@ -16,6 +16,7 @@ local servers = {
 	"cssls",
 	"html",
 	"marksman",
+	"marksman",
 }
 
 mason_lspconfig.setup({
@@ -38,6 +39,12 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+lspconfig.bashls.setup({
+    on_attach = on_attach,
+    filetypes = {"bash", "sh"},
+	capabilities = capabilities
+})
 
 lspconfig.marksman.setup({
     on_attach = on_attach,

@@ -59,8 +59,8 @@ return packer.startup(function(use)
         "ray-x/lsp_signature.nvim",
         config = function()
             require("lsp_signature").setup({
-                toggle_key = "<C-s>",
-                select_signature_key = "<C-S>",
+                toggle_key = "<C-S>",
+                select_signature_key = "<C-E>",
                 hint_enable = false,
             })
         end,
@@ -76,16 +76,16 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip")
     use("L3MON4D3/LuaSnip")
     use("honza/vim-snippets")
-    -- use({
-    --     "zbirenbaum/copilot.lua",
-    --     event = { "VimEnter" },
-    --     config = function()
-    --         vim.defer_fn(function()
-    --             require("user.copilot")
-    --         end, 100)
-    --     end,
-    -- })
-    -- use("zbirenbaum/copilot-cmp")
+    use({
+        "zbirenbaum/copilot.lua",
+        event = { "VimEnter" },
+        config = function()
+            vim.defer_fn(function()
+                require("user.copilot")
+            end, 100)
+        end,
+    })
+    use("zbirenbaum/copilot-cmp")
     use({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = function()
@@ -94,7 +94,9 @@ return packer.startup(function(use)
     })
 
     -- treesitter plugins
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", 
+        -- commit = "4cccb6f"  # there was a breaking change in this commit - pin it? maybe fixd now
+    })
     use("nvim-treesitter/nvim-treesitter-refactor")
     --    use("nvim-treesitter/nvim-treesitter-context") -- redundant with navic
     use("danymat/neogen")
