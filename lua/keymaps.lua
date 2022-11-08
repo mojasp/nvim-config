@@ -6,22 +6,39 @@ local keymap = vim.api.nvim_set_keymap
 
 -- Remap space as leader key
 vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = " "
 
 -- c-q to delete current buffer
-vim.keymap.set(allmodes, "<C-Q>", function() vim.cmd("bd!") end, opts)
+vim.keymap.set(allmodes, "<C-Q>", function()
+    vim.cmd("bd!")
+end, opts)
 
 keymap("n", "<F3>", ":set hlsearch!<CR>", opts)
 
---use [,{,],} from english layout -- note: changing layout instead is better..
-vim.keymap.set(allmodes, "ö", "[", opts)
-vim.keymap.set(allmodes, "Ö", "{", opts)
-vim.keymap.set(allmodes, "ä", "]", opts)
-vim.keymap.set(allmodes, "Ä", "}", opts)
-vim.keymap.set("n", "öö", "[[", opts)
-vim.keymap.set("n", "öä", "[]", opts)
-vim.keymap.set("n", "äö", "][", opts)
-vim.keymap.set("n", "ää", "]]", opts)
+-- --use [,{,],} from english layout -- note: changing layout instead is better..
+-- vim.keymap.set(allmodes, "ö", "[", opts)
+-- vim.keymap.set(allmodes, "Ö", "{", opts)
+-- vim.keymap.set(allmodes, "ä", "]", opts)
+-- vim.keymap.set(allmodes, "Ä", "}", opts)
+-- vim.keymap.set("n", "öö", "[[", opts)
+-- vim.keymap.set("n", "öä", "[]", opts)
+-- vim.keymap.set("n", "äö", "][", opts)
+-- vim.keymap.set("n", "ää", "]]", opts)
+--
+
+--navigate from insert mode
+vim.keymap.set("i", "<C-l>", function()
+    require("tmux").move_right()
+end, opts)
+vim.keymap.set("i", "<C-h>", function()
+    require("tmux").move_left()
+end, opts)
+vim.keymap.set("i", "<C-k>", function()
+    require("tmux").move_top()
+end, opts)
+vim.keymap.set("i", "<C-j>", function()
+    require("tmux").move_bottom()
+end, opts)
 
 --paste into new line
 keymap("n", "ü", ":pu<cr>", opts)
@@ -42,7 +59,9 @@ keymap("n", "<C-p>", "<cmd>:cp<cr>", opts)
 keymap("n", "<F1>", ":SymbolsOutline<cr>", opts)
 
 --telescope
-keymap("n", "<C-b>", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", opts)
+keymap("n", "<leader>o", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", opts)
+keymap("n", "<leader>l", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", opts)
+keymap("n", "<leader>t", "<cmd>Telescope<cr>", opts)
 keymap("n", "<C-f>", "<cmd>lua require('telescope.builtin').find_files()<cr>", opts)
 keymap("n", "<C-g>", "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", ";", "<cmd>lua require('telescope.builtin').buffers({sort_lastused=true, initial_mode=normal})<cr>", opts)
@@ -69,10 +88,10 @@ end, opts)
 vim.keymap.set("n", "<Leader>b", function()
     require("dap").toggle_breakpoint()
 end, opts)
-vim.keymap.set("n", "<Leader>B", function()
+vim.keymap.set("n", "<Leader>Bc", function()
     require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, opts)
-vim.keymap.set("n", "<Leader>lp", function()
+vim.keymap.set("n", "<Leader>Bl", function()
     require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 end, opts)
 vim.keymap.set("n", "<Leader>dr", function()

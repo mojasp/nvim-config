@@ -16,9 +16,9 @@ require("tmux").setup({
         enable_default_keybindings = true,
  
         -- sets resize steps for x axis
-        resize_step_x = 1,
+        resize_step_x = 3,
 
         -- sets resize steps for y axis
-        resize_step_y = 1,       
+        resize_step_y = 3,       
     }
 })

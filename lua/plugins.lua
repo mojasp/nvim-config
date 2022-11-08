@@ -94,7 +94,9 @@ return packer.startup(function(use)
     })
 
     -- treesitter plugins
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", 
+    use({
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
         -- commit = "4cccb6f"  # there was a breaking change in this commit - pin it? maybe fixd now
     })
     use("nvim-treesitter/nvim-treesitter-refactor")
@@ -153,7 +155,6 @@ return packer.startup(function(use)
             require("buildme").setup({ wincmd = "vsplit" })
         end,
     })
-    use("vim-scripts/a.vim")
     use({
         "neomake/neomake",
         config = function()
@@ -165,6 +166,15 @@ return packer.startup(function(use)
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
+        end,
+    })
+
+    --- Language specific
+    use("vim-scripts/a.vim")
+    use({
+        "jalvesaq/Nvim-R",
+        config = function()
+            -- vim.cmd("let R_external_term = 1")
         end,
     })
     use({
@@ -187,7 +197,7 @@ return packer.startup(function(use)
 
     ------fold
     use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
-    --
+
     ----- MISC -----
     --use("tpope/vim-vinegar")
     use("mattn/calendar-vim")
@@ -240,10 +250,10 @@ return packer.startup(function(use)
         "ahmedkhalf/project.nvim",
         config = function()
             require("project_nvim").setup({
-                ignore_lsp = { "null-ls" },
+                ignore_lsp = { "null-ls", "r-language-server" },
                 -- When set to false, you will get a message when project.nvim changes your
                 -- directory.
-                silent_chdir = false,
+                silent_chdir = true,
                 exclude_dirs = { "~" },
             })
         end,
@@ -303,6 +313,12 @@ return packer.startup(function(use)
     -------------------------------
     ------User Interface-----------
     -------------------------------
+    use({
+        "nvim-zh/colorful-winsep.nvim",
+        config = function()
+            require("colorful-winsep").setup({})
+        end,
+    })
     use({
         "kyazdani42/nvim-web-devicons",
         config = function()

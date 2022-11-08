@@ -15,7 +15,7 @@ local servers = {
 	"jsonls",
 	"cssls",
 	"html",
-	"marksman",
+	"r_language_server",
 	"marksman",
 }
 
