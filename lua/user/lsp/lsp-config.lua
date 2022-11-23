@@ -17,6 +17,7 @@ local servers = {
 	"html",
 	"r_language_server",
 	"marksman",
+	"cmake",
 }
 
 mason_lspconfig.setup({

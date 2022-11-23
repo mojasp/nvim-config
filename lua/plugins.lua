@@ -92,6 +92,23 @@ return packer.startup(function(use)
             require("lsp_lines").setup()
         end,
     })
+    use({
+        "dccsillag/magma-nvim",
+        run = ":UpdateRemotePlugins",
+        config = function()
+            vim.cmd([[
+                    nnoremap <silent><expr> <LocalLeader>r  :MagmaEvaluateOperator<CR>
+                    nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
+                    xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
+                    nnoremap <silent>       <LocalLeader>rc :MagmaReevaluateCell<CR>
+                    nnoremap <silent>       <LocalLeader>rd :MagmaDelete<CR>
+                    nnoremap <silent>       <LocalLeader>ro :MagmaShowOutput<CR>
+
+                    let g:magma_automatically_open_output = v:false
+                    let g:magma_image_provider = "ueberzug"
+                ]])
+        end,
+    })
 
     -- treesitter plugins
     use({
@@ -195,9 +212,6 @@ return packer.startup(function(use)
 
     use("lervag/vimtex")
 
-    ------fold
-    use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
-
     ----- MISC -----
     --use("tpope/vim-vinegar")
     use("mattn/calendar-vim")
@@ -223,6 +237,7 @@ return packer.startup(function(use)
         "lewis6991/gitsigns.nvim",
         config = function()
             require("gitsigns").setup()
+            require("scrollbar.handlers.gitsigns").setup()
         end,
     })
     use("tpope/vim-fugitive")
@@ -295,17 +310,6 @@ return packer.startup(function(use)
                     ".exrc.lua",
                     ".exrc",
                 },
-            })
-        end,
-    })
-    -- use("tpope/vim-obsession") --sessions
-    use({
-        "rmagatti/auto-session",
-        config = function()
-            require("auto-session").setup({
-                log_level = "error",
-                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-                auto_session_enable_last_session = true,
             })
         end,
     })
