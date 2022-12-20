@@ -18,6 +18,7 @@ local servers = {
 	"r_language_server",
 	"marksman",
 	"cmake",
+	"zls",
 }
 
 mason_lspconfig.setup({

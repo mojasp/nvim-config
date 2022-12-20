@@ -51,3 +51,26 @@ vim.cmd([[
     set wildmode=longest:full,full
     set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db
 ]])
+
+-- vimtex
+vim.cmd([[
+"" sioyek viewer
+let g:vimtex_view_method='sioyek'
+let g:vimtex_callback_progpath ='/home/moritz/.local/bin/nvim'
+
+"" setup rpc for syiotek/vimtex inverse search
+" function! SetServerName()
+"   if has('win32')
+"     let nvim_server_file = $TEMP . "/curnvimserver.txt"
+"   else
+"     let nvim_server_file = "/tmp/curnvimserver.txt"
+"   endif
+"   let cmd = printf("echo %s > %s", v:servername, nvim_server_file)
+"   call system(cmd)
+" endfunction
+"
+" augroup vimtex_common
+"     autocmd!
+"     autocmd FileType tex call SetServerName()
+" augroup END
+]])

@@ -13,7 +13,7 @@ treesitter_configs.setup({
 	indent = { enable = true, disable = {} },
 	ensure_installed = "all",
 	sync_install = true,
-	ignore_install = { "phpdoc" }, -- List of parsers to ignore installation
+	ignore_install = { "phpdoc", "latex" }, -- List of parsers to ignore installation
 	refactor = {
 		highlight_definitions = {
 			enable = true,

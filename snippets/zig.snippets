@@ -1,0 +1,19 @@
+priority 5000
+snippet pr
+	try stdout.print("{${1:s}}\n", .{$2});
+
+snippet dbg
+	std.debug.print("{${1:s}}\n", .{$2});
+
+snippet gpa
+	var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+
+snippet wh
+    while($1) : ($2) {
+		$3
+    }
+
+snippet whit
+    while(${1:it}.next() != null) {
+		$2
+    }

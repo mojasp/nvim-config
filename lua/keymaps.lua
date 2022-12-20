@@ -39,6 +39,8 @@ end, opts)
 vim.keymap.set("i", "<C-j>", function()
     require("tmux").move_bottom()
 end, opts)
+--repeat last command in tmux pane that is located to the right
+vim.keymap.set("n", "<leader>rp", "<cmd>!tmux send-keys -t {last} UP Enter <cr><cr>")
 
 --paste into new line
 keymap("n", "ü", ":pu<cr>", opts)
