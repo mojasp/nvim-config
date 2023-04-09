@@ -130,7 +130,7 @@ return packer.startup(function(use)
     })
 
     -- colorscheme
-    use({ "ellisonleao/gruvbox.nvim" })
+    -- use({ "ellisonleao/gruvbox.nvim" })
     use({
         "catppuccin/nvim",
         config = function()
@@ -154,6 +154,15 @@ return packer.startup(function(use)
         "benfowler/telescope-luasnip.nvim",
     })
 
+    use({
+        "nvim-telescope/telescope-bibtex.nvim",
+        requires = {
+            { "nvim-telescope/telescope.nvim" },
+        },
+        config = function()
+            require("telescope").load_extension("bibtex")
+        end,
+    })
     ------------------------------------
     ----------Utilities-----------------
     ------------------------------------
@@ -321,7 +330,10 @@ return packer.startup(function(use)
     use({
         "nvim-zh/colorful-winsep.nvim",
         config = function()
-            require("colorful-winsep").setup({})
+            require("colorful-winsep").setup({
+                highlight = {
+                }
+            })
         end,
     })
     use({

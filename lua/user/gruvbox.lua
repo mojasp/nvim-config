@@ -28,6 +28,5 @@ else
     vim.cmd([[
         colorscheme kanagawa
         set guifont=JetBrains\ Mono:h11
-        hi Normal guibg=NONE ctermbg=NONE
     ]])
 end

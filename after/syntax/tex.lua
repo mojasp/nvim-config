@@ -19,3 +19,20 @@ require("cmp").setup.buffer({
         -- other sources
     },
 })
+
+vim.keymap.set("n", '<localleader>bc', "<cmd>Telescope bibtex<cr>")
+vim.keymap.set("n", '<localleader>f', "<cmd>call vimtex#fzf#run()<cr>")
+vim.keymap.set("n", '<F1>', "<cmd>:VimtexTocToggle<cr>")
+
+-- --format using fmtprogram (supplied by vimtex..) on save
+-- vim.cmd([[
+-- function! TEX_Format()
+--     let w:v = winsaveview()
+--     silent normal gqiP
+--     call winrestview(w:v)
+-- endfunction
+-- augroup Tex
+--     autocmd!
+--     autocmd BufWritePre <buffer> call TEX_Format()
+-- augroup END
+-- ]])

@@ -14,7 +14,17 @@ vim.opt.cursorline = true
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.swapfile = false
 
-vim.opt.termguicolors = true
+ vim.cmd([[
+   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+   set t_ut=
+   set termguicolors
+   colorscheme kanagawa
+]])
+-- vim.cmd([[
+-- set t_ut=
+-- set t_Co=256
+-- ]])
 
 vim.opt.number = true
 vim.opt.expandtab = true
@@ -54,6 +64,7 @@ vim.cmd([[
 
 -- vimtex
 vim.cmd([[
+let g:vimtex_format_enabled=1
 "" sioyek viewer
 let g:vimtex_view_method='sioyek'
 let g:vimtex_callback_progpath ='/home/moritz/.local/bin/nvim'

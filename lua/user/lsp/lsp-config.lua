@@ -8,7 +8,7 @@ local servers = {
 	"clangd",
 	"tsserver",
 	"pyright",
-	"sumneko_lua",
+	"lua_ls",
 	"eslint",
 	"bashls",
 	"yamlls",
