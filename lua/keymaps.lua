@@ -46,7 +46,7 @@ vim.keymap.set("n", "<leader>rp", "<cmd>!tmux send-keys -t {last} UP Enter <cr><
 keymap("n", "ü", ":pu<cr>", opts)
 keymap("n", "Ü", ":pu!<CR>", opts)
 
---Accept autocomplete in insert mode
+--"Accept" line in insert mode (provided one is using C/C++/Zig)
 keymap("i", "<C-a>", "<Esc>A;<CR>", opts)
 
 --mappings for building and cleaning

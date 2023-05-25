@@ -41,17 +41,18 @@ require("lualine").setup({
     sections = {
         lualine_a = { { "branch" } },
         lualine_b = { { "diff", source = diff_source }, { "diagnostics" } },
-        lualine_c = { {
-            "filename" ,
-            path=1
-        } },
+        lualine_c = { {"navic", color_correction=nil, navic_opts=nil} },
         lualine_x = { "encoding", "filetype" },
         lualine_y = { "progress" },
         lualine_z = { location },
     },
     winbar = {
-        lualine_a = {},
-        lualine_c = { { navic.get_location, cond = navic.is_available } },
+        lualine_a = { },
+        lualine_b = { },
+        lualine_c = { {
+            "filename",
+            path = 1,
+        } },
         lualine_x = { { winbar_placeholder } },
         lualine_y = { { current_signature_hint } },
         lualine_z = { {} },

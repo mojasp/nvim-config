@@ -1,11 +1,4 @@
 require("nvim-tree").setup({
-    view = {
-        mappings = {
-            list = {
-                { key = "<CR>", action = "edit_in_place" },
-            },
-        },
-    },
 })
 local function toggle_replace()
     local view = require("nvim-tree.view")

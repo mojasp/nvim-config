@@ -19,7 +19,6 @@ vim.opt.swapfile = false
    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
    set t_ut=
    set termguicolors
-   colorscheme kanagawa
 ]])
 -- vim.cmd([[
 -- set t_ut=

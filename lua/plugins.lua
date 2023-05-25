@@ -211,7 +211,7 @@ return packer.startup(function(use)
         end,
     })
     use("vimwiki/vimwiki")
-    use("tools-life/taskwiki")
+    use("tools-life/taskwiki") --taskwarrior support for vimwiki
     use({
         "gaoDean/autolist.nvim",
         tag = "*",
@@ -223,24 +223,10 @@ return packer.startup(function(use)
     use("lervag/vimtex")
 
     ----- MISC -----
+    use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+
     --use("tpope/vim-vinegar")
     use("mattn/calendar-vim")
-    use({
-        "KadoBOT/nvim-spotify",
-        requires = "nvim-telescope/telescope.nvim",
-        config = function()
-            local spotify = require("nvim-spotify")
-
-            spotify.setup({
-                -- default opts
-                status = {
-                    update_interval = 10000, -- the interval (ms) to check for what's currently playing
-                    format = "%s %t by %a", -- spotify-tui --format argument
-                },
-            })
-        end,
-        run = "make",
-    })
 
     -----Git------
     use({
@@ -250,7 +236,22 @@ return packer.startup(function(use)
             require("scrollbar.handlers.gitsigns").setup()
         end,
     })
+    --gitsigns does the same but is too slow
+    use({
+        "f-person/git-blame.nvim",
+        config = function()
+            vim.cmd("let g:gitblame_enabled=0")
+        end,
+    })
+
     use("tpope/vim-fugitive")
+    use({
+        "CKolkey/neogit",
+        requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("neogit").setup({})
+        end,
+    })
     use("rbong/vim-flog")
     use({
         "sindrets/diffview.nvim",
@@ -271,6 +272,10 @@ return packer.startup(function(use)
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
     })
     use("aserowy/tmux.nvim")
+    -- use({
+    --     "marromlam/sailor.vim",
+    --     run = "./install.sh",
+    -- })
     use({
         "ahmedkhalf/project.nvim",
         config = function()
@@ -327,15 +332,14 @@ return packer.startup(function(use)
     -------------------------------
     ------User Interface-----------
     -------------------------------
-    use({
-        "nvim-zh/colorful-winsep.nvim",
-        config = function()
-            require("colorful-winsep").setup({
-                highlight = {
-                }
-            })
-        end,
-    })
+    -- use({
+    --     "nvim-zh/colorful-winsep.nvim",
+    --     config = function()
+    --         require("colorful-winsep").setup({
+    --             highlight = {},
+    --         })
+    --     end,
+    -- })
     use({
         "kyazdani42/nvim-web-devicons",
         config = function()
