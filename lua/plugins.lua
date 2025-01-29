@@ -47,7 +47,7 @@ return packer.startup(function(use)
     use("williamboman/mason.nvim")
     use("williamboman/mason-lspconfig.nvim")
     use("neovim/nvim-lspconfig")
-    use("jose-elias-alvarez/null-ls.nvim")
+    use("nvimtools/none-ls.nvim")
     use({
         "SmiteshP/nvim-navic",
         config = function()
@@ -77,45 +77,27 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip")
     use("L3MON4D3/LuaSnip")
     use("honza/vim-snippets")
-    use({
-        "zbirenbaum/copilot.lua",
-        event = { "VimEnter" },
-        config = function()
-            vim.defer_fn(function()
-                require("user.copilot")
-            end, 100)
-        end,
-    })
-    use("zbirenbaum/copilot-cmp")
-    use({
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("lsp_lines").setup()
-        end,
-    })
-    use({
-        "dccsillag/magma-nvim",
-        run = ":UpdateRemotePlugins",
-        config = function()
-            vim.cmd([[
-                    nnoremap <silent><expr> <LocalLeader>r  :MagmaEvaluateOperator<CR>
-                    nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
-                    xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
-                    nnoremap <silent>       <LocalLeader>rc :MagmaReevaluateCell<CR>
-                    nnoremap <silent>       <LocalLeader>rd :MagmaDelete<CR>
-                    nnoremap <silent>       <LocalLeader>ro :MagmaShowOutput<CR>
-
-                    let g:magma_automatically_open_output = v:false
-                    let g:magma_image_provider = "ueberzug"
-                ]])
-        end,
-    })
+    -- use({
+    --     "zbirenbaum/copilot.lua",
+    --     event = { "VimEnter" },
+    --     config = function()
+    --         vim.defer_fn(function()
+    --             require("user.copilot")
+    --         end, 100)
+    --     end,
+    -- })
+    -- use("zbirenbaum/copilot-cmp")
+    -- use({
+    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    --     config = function()
+    --         require("lsp_lines").setup()
+    --     end,
+    -- })
 
     -- treesitter plugins
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
-        -- commit = "4cccb6f"  # there was a breaking change in this commit - pin it? maybe fixd now
     })
     use("nvim-treesitter/nvim-treesitter-refactor")
     --    use("nvim-treesitter/nvim-treesitter-context") -- redundant with navic
@@ -130,16 +112,17 @@ return packer.startup(function(use)
     })
 
     -- colorscheme
-    -- use({ "ellisonleao/gruvbox.nvim" })
+    use("rebelot/kanagawa.nvim")
+    use("iruzo/matrix-nvim")
+    use { "catppuccin/nvim", as = "catppuccin" }
+
+    -- fzf - this is only used for vimtex integration
     use({
-        "catppuccin/nvim",
-        config = function()
-            require("catppuccin").setup()
+        "junegunn/fzf",
+        run = function()
+            vim.cmd([[call fzf#install()]])
         end,
     })
-    use("EdenEast/nightfox.nvim") -- Packer
-    use("rebelot/kanagawa.nvim")
-
     -- telescope
     use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
     use({
@@ -167,28 +150,24 @@ return packer.startup(function(use)
     ----------Utilities-----------------
     ------------------------------------
     --cache for faster startup
-    use({
-        "lewis6991/impatient.nvim",
-        config = function()
-            require("impatient")
-        end,
-    })
     ------- Coding utils -------
-    use("tpope/vim-dispatch")
-    use({
-        "ojroques/nvim-buildme",
-        lock = true,
-        config = function()
-            require("buildme").setup({ wincmd = "vsplit" })
-        end,
-    })
-    use({
-        "neomake/neomake",
-        config = function()
-            vim.g.neomake_open_list = 1
-        end,
-    })
+    -- use("tpope/vim-dispatch") - good dispatch thing; not using it atm
+    --  same for all the others
+    -- use({
+    --     "ojroques/nvim-buildme",
+    --     lock = true,
+    --     config = function()
+    --         require("buildme").setup({ wincmd = "vsplit" })
+    --     end,
+    -- })
+    -- use({
+    --     "neomake/neomake",
+    --     config = function()
+    --         vim.g.neomake_open_list = 1
+    --     end,
+    -- })
 
+    -- use gcc for commenting. help comment.nvim
     use({
         "numToStr/Comment.nvim",
         config = function()
@@ -197,19 +176,22 @@ return packer.startup(function(use)
     })
 
     --- Language specific
-    use("vim-scripts/a.vim")
+    use("vim-scripts/a.vim") -- switch from .h to .c via :A
+    -- R language support
     use({
         "jalvesaq/Nvim-R",
         config = function()
             -- vim.cmd("let R_external_term = 1")
         end,
     })
+    -- markdown preview
     use({
         "iamcco/markdown-preview.nvim",
         run = function()
             vim.fn["mkdp#util#install"]()
         end,
     })
+    --vimiwiki & taskwarrior
     use("vimwiki/vimwiki")
     use("tools-life/taskwiki") --taskwarrior support for vimwiki
     use({
@@ -220,13 +202,14 @@ return packer.startup(function(use)
         end,
     })
 
+    --vimtex important
     use("lervag/vimtex")
 
     ----- MISC -----
+    ---better quickfix; including preview and fzf support (press zf in qf win)
     use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
-    --use("tpope/vim-vinegar")
-    use("mattn/calendar-vim")
+    use("tpope/vim-vinegar") -- navigation with -
 
     -----Git------
     use({
@@ -236,7 +219,8 @@ return packer.startup(function(use)
             require("scrollbar.handlers.gitsigns").setup()
         end,
     })
-    --gitsigns does the same but is too slow
+
+    --gitsigns does the same but is too slow. Adds virtual text blame with :GitBlameToggle
     use({
         "f-person/git-blame.nvim",
         config = function()
@@ -244,14 +228,9 @@ return packer.startup(function(use)
         end,
     })
 
+    --general git
     use("tpope/vim-fugitive")
-    use({
-        "CKolkey/neogit",
-        requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-        config = function()
-            require("neogit").setup({})
-        end,
-    })
+    -- depends on fugitive. :Flog gives git history
     use("rbong/vim-flog")
     use({
         "sindrets/diffview.nvim",
@@ -276,24 +255,19 @@ return packer.startup(function(use)
     --     "marromlam/sailor.vim",
     --     run = "./install.sh",
     -- })
-    use({
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("project_nvim").setup({
-                ignore_lsp = { "null-ls", "r-language-server" },
-                -- When set to false, you will get a message when project.nvim changes your
-                -- directory.
-                silent_chdir = true,
-                exclude_dirs = { "~" },
-            })
-        end,
-    })
-    use({
-        "kyazdani42/nvim-tree.lua",
-        requires = {
-            "kyazdani42/nvim-web-devicons", -- optional, for file icons
-        },
-    })
+    -- not using project.nvim anmyore
+    -- use({
+    --     "ahmedkhalf/project.nvim",
+    --     config = function()
+    --         require("project_nvim").setup({
+    --             ignore_lsp = { "null-ls", "r-language-server" },
+    --             -- When set to false, you will get a message when project.nvim changes your
+    --             -- directory.
+    --             silent_chdir = true,
+    --             exclude_dirs = { "~" },
+    --         })
+    --     end,
+    -- })
     use({ "windwp/nvim-autopairs" })
     use({ "junegunn/vim-easy-align" })
     use({
@@ -303,15 +277,9 @@ return packer.startup(function(use)
             require("nvim-surround").setup({})
         end,
     })
-    --Color picker, :CccPick to use
-    use({
-        "uga-rosa/ccc.nvim",
-        config = function()
-            require("ccc").setup({})
-        end,
-    })
 
     ----------- Project mgmt ---------
+    -- projet specific config very ncie
     use({
         --project local configs
         "MunifTanjim/exrc.nvim",
@@ -346,14 +314,19 @@ return packer.startup(function(use)
             require("nvim-web-devicons").setup()
         end,
     })
+    --notification engine; :messages for history still works
     use("rcarriga/nvim-notify")
-    use("lukas-reineke/indent-blankline.nvim")
+    --visual guides for whitespaces, quite ncie
+    use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.8" })
+    -- color picker and utilities
     use({
         "NvChad/nvim-colorizer.lua",
         config = function()
             require("colorizer").setup()
         end,
     })
+
+    --rh scrollbar
     use({
         "petertriho/nvim-scrollbar",
         config = function()
@@ -361,17 +334,17 @@ return packer.startup(function(use)
         end,
     })
 
-    -------------------------------
-    ------Debugger-----------------
-    -------------------------------
-    use("mfussenegger/nvim-dap")
-    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
-    use({
-        "theHamsta/nvim-dap-virtual-text",
-        config = function()
-            require("nvim-dap-virtual-text").setup()
-        end,
-    })
+    -- -------------------------------
+    -- ------Debugger-----------------
+    -- -------------------------------
+    -- use("mfussenegger/nvim-dap")
+    -- use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    -- use({
+    --     "theHamsta/nvim-dap-virtual-text",
+    --     config = function()
+    --         require("nvim-dap-virtual-text").setup()
+    --     end,
+    -- })
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

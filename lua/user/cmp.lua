@@ -1,7 +1,4 @@
-local status_ok, cmp = pcall(require, "cmp")
-if not status_ok then
-    return
-end
+local cmp = require("cmp")
 
 local has_words_before = function()
     -- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -31,7 +28,7 @@ cmp.setup({
     formatting = {
         format = lspkind.cmp_format({
             mode = "symbol_text", -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
         }),
     },
     mapping = cmp.mapping.preset.insert({
@@ -77,7 +74,6 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
         { name = "luasnip" },
-        { name = "copilot" },
         { name = "path" },
         { name = "buffer" },
     },

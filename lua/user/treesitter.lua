@@ -8,10 +8,10 @@ treesitter_configs.setup({
 		disable = {},
 		additional_vim_regex_highlighting = false,
 	},
-	autopairs = { enable = true },
+	-- autopairs = { enable = true },
 	autotag = { enable = true },
 	indent = { enable = true, disable = {} },
-	ensure_installed = "all",
+	-- ensure_installed = "all",
 	sync_install = true,
 	ignore_install = { "phpdoc", "latex" }, -- List of parsers to ignore installation
 	refactor = {

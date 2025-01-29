@@ -35,7 +35,6 @@ require("telescope").load_extension("fzf")
 -- To get ui-select loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require("telescope").load_extension("ui-select")
-require("telescope").load_extension("projects")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("notify")
 require("telescope").load_extension("luasnip")

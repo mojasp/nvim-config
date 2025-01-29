@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 -- disable shadafile while sourcing config
 vim.opt.shadafile = "NONE"
 

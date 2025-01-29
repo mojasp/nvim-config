@@ -8,6 +8,8 @@ vim.opt.smartindent = true -- smart indent
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.opt.autoindent = true
 
+vim.opt.spelllang="en_us,de_de"
+
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 
@@ -45,13 +47,10 @@ vim.cmd([[
     set mouse=
 ]])
 
--- no netrwo: using nvim-tree
-
 -- vim.g.loaded = 1
 -- vim.g.loaded_netrwPlugin = 1
 vim.cmd([[
 """""" netrw """"""
-    let g:netrw_browse_split = 4
 ]])
 
 vim.cmd([[
@@ -61,12 +60,22 @@ vim.cmd([[
     set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db
 ]])
 
+-- Multiline search via S
+vim.cmd([[
+function! SearchMultiLine(bang, ...)
+  if a:0 > 0
+    let sep = (a:bang) ? '\_W\+' : '\_s\+'
+    let @/ = join(a:000, sep)
+  endif
+endfunction
+command! -bang -nargs=* -complete=tag S call SearchMultiLine(<bang>0, <f-args>)|normal! /<C-R>/<CR>
+]])
+
 -- vimtex
 vim.cmd([[
 let g:vimtex_format_enabled=1
 "" sioyek viewer
-let g:vimtex_view_method='sioyek'
-let g:vimtex_callback_progpath ='/home/moritz/.local/bin/nvim'
+let g:vimtex_view_method='zathura'
 
 "" setup rpc for syiotek/vimtex inverse search
 " function! SetServerName()
