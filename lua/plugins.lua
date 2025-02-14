@@ -75,7 +75,7 @@ return packer.startup(function(use)
     use("hrsh7th/cmp-cmdline")
     use("onsails/lspkind-nvim")
     use("saadparwaiz1/cmp_luasnip")
-    use("L3MON4D3/LuaSnip")
+    use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" })
     use("honza/vim-snippets")
     -- use({
     --     "zbirenbaum/copilot.lua",
@@ -114,7 +114,7 @@ return packer.startup(function(use)
     -- colorscheme
     use("rebelot/kanagawa.nvim")
     use("iruzo/matrix-nvim")
-    use { "catppuccin/nvim", as = "catppuccin" }
+    use({ "catppuccin/nvim", as = "catppuccin" })
 
     -- fzf - this is only used for vimtex integration
     use({
@@ -167,14 +167,6 @@ return packer.startup(function(use)
     --     end,
     -- })
 
-    -- use gcc for commenting. help comment.nvim
-    use({
-        "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-        end,
-    })
-
     --- Language specific
     use("vim-scripts/a.vim") -- switch from .h to .c via :A
     -- R language support
@@ -191,16 +183,25 @@ return packer.startup(function(use)
             vim.fn["mkdp#util#install"]()
         end,
     })
+    use({
+        "OXY2DEV/markview.nvim",
+        config = function()
+            require("markview").setup({
+                -- Your configuration options here
+            })
+        end,
+    })
     --vimiwiki & taskwarrior
     use("vimwiki/vimwiki")
     use("tools-life/taskwiki") --taskwarrior support for vimwiki
-    use({
-        "gaoDean/autolist.nvim",
-        tag = "*",
-        config = function()
-            require("autolist").setup({})
-        end,
-    })
+    --disable - lag?
+    --use({
+    --     "gaoDean/autolist.nvim",
+    --     tag = "*",
+    --     config = function()
+    --         require("autolist").setup({})
+    --     end,
+    -- })
 
     --vimtex important
     use("lervag/vimtex")
@@ -251,30 +252,27 @@ return packer.startup(function(use)
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
     })
     use("aserowy/tmux.nvim")
-    -- use({
-    --     "marromlam/sailor.vim",
-    --     run = "./install.sh",
-    -- })
-    -- not using project.nvim anmyore
-    -- use({
-    --     "ahmedkhalf/project.nvim",
-    --     config = function()
-    --         require("project_nvim").setup({
-    --             ignore_lsp = { "null-ls", "r-language-server" },
-    --             -- When set to false, you will get a message when project.nvim changes your
-    --             -- directory.
-    --             silent_chdir = true,
-    --             exclude_dirs = { "~" },
-    --         })
-    --     end,
-    -- })
+    -- will autoset directoryy
+    use({
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup({
+                ignore_lsp = { "null-ls", "r-language-server" },
+                -- When set to false, you will get a message when project.nvim changes your
+                -- directory.
+                silent_chdir = true,
+                exclude_dirs = { "~" },
+            })
+        end,
+    })
     use({ "windwp/nvim-autopairs" })
     use({ "junegunn/vim-easy-align" })
     use({
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
-            require("nvim-surround").setup({})
+            require("nvim-surround").setup({
+            })
         end,
     })
 

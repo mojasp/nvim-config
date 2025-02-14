@@ -24,9 +24,6 @@ vim.keymap.set("n", "öö", "[[", opts)
 vim.keymap.set("n", "öä", "[]", opts)
 vim.keymap.set("n", "äö", "][", opts)
 vim.keymap.set("n", "ää", "]]", opts)
---
-
---vim resize broken...
 
 --navigate from insert mode
 vim.keymap.set("i", "<C-l>", function()
@@ -162,7 +159,7 @@ vim.diagnostic.config({
     virtual_lines = false,
     signs = true,
     underline = false,
-    update_in_insert = true,
+    update_in_insert = false,
     severity_sort = false,
 
     float = {
