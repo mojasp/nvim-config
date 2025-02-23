@@ -22,10 +22,6 @@ vim.opt.swapfile = false
    set t_ut=
    set termguicolors
 ]])
--- vim.cmd([[
--- set t_ut=
--- set t_Co=256
--- ]])
 
 vim.opt.number = true
 vim.opt.expandtab = true
@@ -38,29 +34,17 @@ vim.opt.relativenumber = true
 vim.opt.cmdheight = 1
 
 vim.cmd([[
-    " general
-    " set spelllang=en_us
-    " set spelllang+=cjk
-    " set spell
-    " syntax on
     set splitright
     set mouse=
-]])
 
--- vim.g.loaded = 1
--- vim.g.loaded_netrwPlugin = 1
-vim.cmd([[
-"""""" netrw """"""
-]])
-
-vim.cmd([[
     """""" command completion """"""
     set wildmenu
     set wildmode=longest:full,full
     set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db
 ]])
 
--- Multiline search via S
+-- Multiline search via S: searches for whitespace separated arguments 
+-- If used via S!, search tokens can be separated by anything
 vim.cmd([[
 function! SearchMultiLine(bang, ...)
   if a:0 > 0
@@ -68,28 +52,11 @@ function! SearchMultiLine(bang, ...)
     let @/ = join(a:000, sep)
   endif
 endfunction
-command! -bang -nargs=* -complete=tag S call SearchMultiLine(<bang>0, <f-args>)|normal! /<C-R>/<CR>
+command! -bang -nargs=* S call SearchMultiLine(<bang>0, <f-args>)|normal! /<C-R>/<CR>
 ]])
 
 -- vimtex
 vim.cmd([[
 let g:vimtex_format_enabled=1
-"" sioyek viewer
 let g:vimtex_view_method='zathura'
-
-"" setup rpc for syiotek/vimtex inverse search
-" function! SetServerName()
-"   if has('win32')
-"     let nvim_server_file = $TEMP . "/curnvimserver.txt"
-"   else
-"     let nvim_server_file = "/tmp/curnvimserver.txt"
-"   endif
-"   let cmd = printf("echo %s > %s", v:servername, nvim_server_file)
-"   call system(cmd)
-" endfunction
-"
-" augroup vimtex_common
-"     autocmd!
-"     autocmd FileType tex call SetServerName()
-" augroup END
 ]])

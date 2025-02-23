@@ -183,14 +183,6 @@ return packer.startup(function(use)
             vim.fn["mkdp#util#install"]()
         end,
     })
-    use({
-        "OXY2DEV/markview.nvim",
-        config = function()
-            require("markview").setup({
-                -- Your configuration options here
-            })
-        end,
-    })
     --vimiwiki & taskwarrior
     use("vimwiki/vimwiki")
     use("tools-life/taskwiki") --taskwarrior support for vimwiki

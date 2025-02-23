@@ -18,6 +18,7 @@ local servers = {
     "marksman",
     "ts_ls",
     "cmake",
+    "nil_ls",
 }
 
 mason_lspconfig.setup({
