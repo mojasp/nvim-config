@@ -54,7 +54,6 @@ return packer.startup(function(use)
             require("nvim-navic").setup()
         end,
     })
-    use("lvimuser/lsp-inlayhints.nvim")
     use({
         "ray-x/lsp_signature.nvim",
         config = function()
@@ -167,6 +166,14 @@ return packer.startup(function(use)
     --     end,
     -- })
 
+    -- http client etc.
+    use({
+        "rest-nvim/rest.nvim",
+        requires = {
+            { 'j-hui/fidget.nvim'}
+        }
+    })
+
     --- Language specific
     use("vim-scripts/a.vim") -- switch from .h to .c via :A
     -- R language support
@@ -176,11 +183,13 @@ return packer.startup(function(use)
             -- vim.cmd("let R_external_term = 1")
         end,
     })
-    -- markdown preview
     use({
         "iamcco/markdown-preview.nvim",
         run = function()
             vim.fn["mkdp#util#install"]()
+        end,
+        config = function()
+            vim.g.mkdp_filetypes = { "markdown", "vimwiki" }
         end,
     })
     --vimiwiki & taskwarrior

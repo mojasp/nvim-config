@@ -75,7 +75,7 @@ cmp.setup({
         { name = "nvim_lsp_signature_help" },
         { name = "luasnip" },
         { name = "path" },
-        { name = "buffer" },
+        -- { name = "buffer" },
     },
     window = {
         completion = cmp.config.window.bordered(),

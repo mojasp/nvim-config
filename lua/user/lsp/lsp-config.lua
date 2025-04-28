@@ -18,7 +18,7 @@ local servers = {
     "marksman",
     "ts_ls",
     "cmake",
-    "nil_ls",
+    "gopls",
 }
 
 mason_lspconfig.setup({
@@ -106,6 +106,22 @@ lspconfig["lua_ls"].setup {
     settings = {
         Lua = {}
     }
+}
+
+lspconfig["gopls"].setup{
+  settings = {
+    gopls = {
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  },
 }
 
 lspconfig.bashls.setup({
