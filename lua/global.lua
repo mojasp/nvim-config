@@ -11,7 +11,7 @@ vim.opt.autoindent = true
 vim.opt.spelllang="en_us,de_de"
 
 vim.opt.signcolumn = "yes"
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.swapfile = false
@@ -28,9 +28,6 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-vim.opt.cmdheight = 1
-
-vim.opt.relativenumber = true
 vim.opt.cmdheight = 1
 
 vim.cmd([[

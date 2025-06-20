@@ -5,9 +5,9 @@ end
 
 -- Completion kinds
 local servers = {
-    "clangd",
+    -- "clangd", configured separately later
     "pyright",
-    "lua_ls",
+    --lua_ls", configured separately later
     "eslint",
     "bashls",
     "yamlls",
@@ -15,10 +15,10 @@ local servers = {
     "cssls",
     "html",
     "r_language_server",
-    "marksman",
+    -- "marksman", configured separately later
     "ts_ls",
     "cmake",
-    "gopls",
+    -- "gopls",
 }
 
 mason_lspconfig.setup({
@@ -38,31 +38,32 @@ vim.g.zig_fmt_autosave = 0
 -- -- enable  format-on-save from nvim-lspconfig + ZLS
 vim.cmd([[autocmd BufWritePre *.zig lua vim.lsp.buf.format()]])
 
-lspconfig["zls"].setup({
-    -- Server-specific settings. See `:help lspconfig-setup`
-    -- omit the following line if `zls` is in your PATH
-    cmd = { '/home/moritz/Documents/Programming/zig_ffmpegexample/zls' },
-
-    -- There are two ways to set config options:
-    --   - edit your `zls.json` that applies to any editor that uses ZLS
-    --   - set in-editor config options with the `settings` field below.
-    --
-    -- Further information on how to configure ZLS:
-    -- https://github.com/zigtools/zls/wiki/Configuration
-    root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-    settings = {
-        zls = {
-            enable_inlay_hints = true,
-            enable_snippets = true,
-            warn_style = true,
-            enable_autofix = true,
-            build_on_save_args = "check",
-            enable_build_on_save = true,
-        },
-    },
-    on_attach = on_attach,
-    capabilities = capabilities,
-})
+-- Doublechekc this if im ever using zig again, seems like i should be tkaing the zls from the nix install
+-- lspconfig["zls"].setup({
+--     -- Server-specific settings. See `:help lspconfig-setup`
+--     -- omit the following line if `zls` is in your PATH
+--     cmd = { '/home/moritz/Documents/Programming/zig_ffmpegexample/zls' },
+--
+--     -- There are two ways to set config options:
+--     --   - edit your `zls.json` that applies to any editor that uses ZLS
+--     --   - set in-editor config options with the `settings` field below.
+--     --
+--     -- Further information on how to configure ZLS:
+--     -- https://github.com/zigtools/zls/wiki/Configuration
+--     root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+--     settings = {
+--         zls = {
+--             enable_inlay_hints = true,
+--             enable_snippets = true,
+--             warn_style = true,
+--             enable_autofix = true,
+--             build_on_save_args = "check",
+--             enable_build_on_save = true,
+--         },
+--     },
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+-- })
 
 --
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -105,7 +106,9 @@ lspconfig["lua_ls"].setup {
     end,
     settings = {
         Lua = {}
-    }
+    },
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 
 lspconfig["gopls"].setup{
@@ -122,6 +125,8 @@ lspconfig["gopls"].setup{
       },
     },
   },
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 lspconfig.bashls.setup({

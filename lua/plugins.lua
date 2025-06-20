@@ -76,22 +76,18 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip")
     use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" })
     use("honza/vim-snippets")
-    -- use({
-    --     "zbirenbaum/copilot.lua",
-    --     event = { "VimEnter" },
-    --     config = function()
-    --         vim.defer_fn(function()
-    --             require("user.copilot")
-    --         end, 100)
-    --     end,
-    -- })
-    -- use("zbirenbaum/copilot-cmp")
-    -- use({
-    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    --     config = function()
-    --         require("lsp_lines").setup()
-    --     end,
-    -- })
+    -- packer.nvim
+    use({
+        "robitx/gp.nvim",
+        config = function()
+            local conf = {
+                -- For customization, refer to Install > Configuration in the Documentation/Readme
+            }
+            require("gp").setup(conf)
+
+            -- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
+        end,
+    })
 
     -- treesitter plugins
     use({
@@ -170,7 +166,7 @@ return packer.startup(function(use)
     use({
         "rest-nvim/rest.nvim",
         requires = {
-            { 'j-hui/fidget.nvim'}
+            { 'j-hui/fidget.nvim' }
         }
     })
 
@@ -183,15 +179,19 @@ return packer.startup(function(use)
             -- vim.cmd("let R_external_term = 1")
         end,
     })
-    use({
-        "iamcco/markdown-preview.nvim",
-        run = function()
-            vim.fn["mkdp#util#install"]()
-        end,
+    use {
+        "sylvanfranklin/omni-preview.nvim",
+        requires = {
+            {
+                "toppair/peek.nvim",
+                run = "deno task --quiet build:fast"
+            }
+        },
         config = function()
-            vim.g.mkdp_filetypes = { "markdown", "vimwiki" }
-        end,
-    })
+            require("omni-preview").setup()
+            require("peek").setup({ app = "browser" }) -- this sets the app used to open the preview
+        end
+    }
     --vimiwiki & taskwarrior
     use("vimwiki/vimwiki")
     use("tools-life/taskwiki") --taskwarrior support for vimwiki
