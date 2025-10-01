@@ -6,7 +6,7 @@ function! ToggleCheckbox()
   let l:col = col('.')
 
   " Match a checkbox at or after the cursor position
-  let l:start = match(l:line, '\[\zs[ xX]\ze\]', l:col - 1)
+  let l:start = match(l:line, '\[\zs[ xX]\ze\]', 0)
 
   if l:start >= 0
     let l:char = l:line[l:start]

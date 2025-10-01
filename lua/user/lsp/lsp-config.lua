@@ -6,7 +6,7 @@ end
 -- Completion kinds
 local servers = {
     -- "clangd", configured separately later
-    "pyright",
+    -- "pylsp",
     --lua_ls", configured separately later
     "eslint",
     "bashls",
@@ -17,12 +17,14 @@ local servers = {
     "r_language_server",
     -- "marksman", configured separately later
     "ts_ls",
+    "html",
     "cmake",
     -- "gopls",
 }
 
 mason_lspconfig.setup({
     ensure_installed = servers,
+    automatic_enable = false
 })
 
 local lspconfig = require("lspconfig")
@@ -139,6 +141,9 @@ lspconfig.marksman.setup({
     on_attach = on_attach,
     filetypes = { "markdown" },
     capabilities = capabilities,
+})
+
+lspconfig.pylsp.setup({
 })
 
 local capabilities_cpp = capabilities

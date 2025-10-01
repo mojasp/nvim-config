@@ -313,8 +313,6 @@ return packer.startup(function(use)
             require("nvim-web-devicons").setup()
         end,
     })
-    --notification engine; :messages for history still works
-    use("rcarriga/nvim-notify")
     --visual guides for whitespaces, quite ncie
     use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.8" })
     -- color picker and utilities
