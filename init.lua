@@ -17,4 +17,6 @@ require('user')
 -- reenable
 vim.opt.shadafile = ""
 
+-- only for managed system
+vim.g.python3_host_prog = vim.fn.expand("~/.venvs/nvim/bin/python3")
 -- latex plugin once needed

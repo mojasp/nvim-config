@@ -54,16 +54,16 @@ return packer.startup(function(use)
             require("nvim-navic").setup()
         end,
     })
-    use({
-        "ray-x/lsp_signature.nvim",
-        config = function()
-            require("lsp_signature").setup({
-                toggle_key = "<C-S>",
-                select_signature_key = "<C-E>",
-                hint_enable = false,
-            })
-        end,
-    })
+    -- use({
+    --     "ray-x/lsp_signature.nvim",
+    --     config = function()
+    --         require("lsp_signature").setup({
+    --             toggle_key = "<C-S>",
+    --             select_signature_key = "<C-E>",
+    --             hint_enable = false,
+    --         })
+    --     end,
+    -- })
 
     --  autocomplete plugins
     use("hrsh7th/nvim-cmp")
@@ -98,13 +98,13 @@ return packer.startup(function(use)
     --    use("nvim-treesitter/nvim-treesitter-context") -- redundant with navic
     use("danymat/neogen")
 
-    --sidebar
     use({
-        "simrat39/symbols-outline.nvim",
+        "hedyhli/outline.nvim",
         config = function()
-            require("symbols-outline").setup()
+            require("outline").setup({})
         end,
     })
+    --  deprecated plugin. TODO configure and use: https://github.com/hedyhli/outline.nvim
 
     -- colorscheme
     use("rebelot/kanagawa.nvim")
@@ -126,7 +126,8 @@ return packer.startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } },
     })
     use("nvim-telescope/telescope-file-browser.nvim")
-    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+    -- use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
     use({ "nvim-telescope/telescope-ui-select.nvim" })
     use({
         "benfowler/telescope-luasnip.nvim",
@@ -146,7 +147,7 @@ return packer.startup(function(use)
     ------------------------------------
     --cache for faster startup
     ------- Coding utils -------
-    -- use("tpope/vim-dispatch") - good dispatch thing; not using it atm
+    use("tpope/vim-dispatch")
     --  same for all the others
     -- use({
     --     "ojroques/nvim-buildme",
@@ -161,14 +162,6 @@ return packer.startup(function(use)
     --         vim.g.neomake_open_list = 1
     --     end,
     -- })
-
-    -- http client etc.
-    use({
-        "rest-nvim/rest.nvim",
-        requires = {
-            { 'j-hui/fidget.nvim' }
-        }
-    })
 
     --- Language specific
     use("vim-scripts/a.vim") -- switch from .h to .c via :A
@@ -209,7 +202,7 @@ return packer.startup(function(use)
 
     ----- MISC -----
     ---better quickfix; including preview and fzf support (press zf in qf win)
-    use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+    -- use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
     use("tpope/vim-vinegar") -- navigation with -
 
@@ -273,25 +266,6 @@ return packer.startup(function(use)
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
             require("nvim-surround").setup({
-            })
-        end,
-    })
-
-    ----------- Project mgmt ---------
-    -- projet specific config very ncie
-    use({
-        --project local configs
-        "MunifTanjim/exrc.nvim",
-        -- disable built-in local config file support
-        config = function()
-            vim.o.exrc = false
-            require("exrc").setup({
-                files = {
-                    ".nvimrc.lua",
-                    ".nvimrc",
-                    ".exrc.lua",
-                    ".exrc",
-                },
             })
         end,
     })

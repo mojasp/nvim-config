@@ -8,11 +8,6 @@ local keymap = vim.api.nvim_set_keymap
 vim.g.mapleader = ","
 vim.g.maplocalleader = " "
 
--- c-q to delete current buffer
-vim.keymap.set(allmodes, "<C-Q>", function()
-    vim.cmd("bd!")
-end, opts)
-
 keymap("n", "<F3>", ":set hlsearch!<CR>", opts)
 
 -- --use [,{,],} from english layout -- note: changing layout instead is better..
@@ -24,6 +19,13 @@ vim.keymap.set("n", "öö", "[[", opts)
 vim.keymap.set("n", "öä", "[]", opts)
 vim.keymap.set("n", "äö", "][", opts)
 vim.keymap.set("n", "ää", "]]", opts)
+
+-- copy relative path to clipbard
+vim.keymap.set("n", "<leader>yp", function()
+  local path = vim.fn.expand("%")
+  vim.fn.setreg("+", path)  -- copy to system clipboard
+  vim.notify("Copied path: '" .. path .. "'", vim.log.levels.INFO)
+end, { desc = "Copy relative file path" })
 
 --navigate from insert mode
 vim.keymap.set("i", "<C-l>", function()
@@ -52,12 +54,23 @@ keymap("i", "<C-a>", "<Esc>A;<CR>", opts)
 keymap("n", "<leader>m", ":Make!<CR><CR>", opts)
 keymap("n", "<leader>c", ":Make! clean<CR><CR>", opts)
 
+function toggle_quickfix()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("copen")
+end
+
+vim.keymap.set('n', '<leader>q', toggle_quickfix, { desc = "Toggle Quickfix Window" })
 --navigate quickfix list
 keymap("n", "<C-n>", "<cmd>:cn<cr>", opts)
 keymap("n", "<C-p>", "<cmd>:cp<cr>", opts)
 
 --sidebar with symbols
-keymap("n", "<F1>", ":SymbolsOutline<cr>", opts)
+keymap("n", "<F1>", ":Outline<cr>", opts)
 
 --telescope
 keymap("n", "<leader>o", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", opts)
@@ -223,3 +236,4 @@ vim.keymap.set("n", "<F12>", function()
         vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next({float=false})<CR>", opts)
     end
 end)
+

@@ -9,10 +9,10 @@ local function diff_source()
     end
 end
 
-local lsp_signature = require("lsp_signature")
-local current_signature_hint = function()
-    return lsp_signature.status_line(0).hint
-end
+-- local lsp_signature = require("lsp_signature")
+-- local current_signature_hint = function()
+--     return lsp_signature.status_line(0).hint
+-- end
 --always show winbar
 local winbar_placeholder = function()
     return "   "

@@ -14,20 +14,20 @@ local servers = {
     "jsonls",
     "cssls",
     "html",
-    "r_language_server",
+    -- "r_language_server",
     -- "marksman", configured separately later
     "ts_ls",
     "html",
     "cmake",
+    "rust_analyzer"
     -- "gopls",
 }
 
 mason_lspconfig.setup({
     ensure_installed = servers,
-    automatic_enable = false
+    automatic_enable = true
 })
 
-local lspconfig = require("lspconfig")
 local on_attach = require("user.lsp.lsp-handlers").on_attach
 local capabilities = require("user.lsp.lsp-handlers").capabilities
 
@@ -71,13 +71,13 @@ vim.cmd([[autocmd BufWritePre *.zig lua vim.lsp.buf.format()]])
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 for _, lsp in pairs(servers) do
-    lspconfig[lsp].setup({
+    vim.lsp.config(lsp, {
         on_attach = on_attach,
         capabilities = capabilities,
     })
 end
 
-lspconfig["lua_ls"].setup {
+vim.lsp.config("lua_ls", {
     on_init = function(client)
         if client.workspace_folders then
             local path = client.workspace_folders[1].name
@@ -111,9 +111,9 @@ lspconfig["lua_ls"].setup {
     },
     on_attach = on_attach,
     capabilities = capabilities,
-}
+})
 
-lspconfig["gopls"].setup{
+vim.lsp.config("gopls", {
   settings = {
     gopls = {
       hints = {
@@ -129,30 +129,38 @@ lspconfig["gopls"].setup{
   },
   on_attach = on_attach,
   capabilities = capabilities,
-}
+})
 
-lspconfig.bashls.setup({
+vim.lsp.config("bashls", {
     on_attach = on_attach,
     filetypes = { "bash", "sh" },
     capabilities = capabilities,
 })
 
-lspconfig.marksman.setup({
+vim.lsp.config("marksman", {
     on_attach = on_attach,
     filetypes = { "markdown" },
     capabilities = capabilities,
 })
 
-lspconfig.pylsp.setup({
-})
+vim.lsp.config("pylsp", {}
+)
 
 local capabilities_cpp = capabilities
 capabilities_cpp.offsetEncoding = { "uts-16" }
-lspconfig["clangd"].setup({
+vim.lsp.config("clangd", {
     cmd = {
         "clangd",
         "--fallback-style=webkit",
     },
     on_attach = on_attach,
     capabilities = capabilities_cpp,
+})
+
+-- rust autoformat
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
 })
