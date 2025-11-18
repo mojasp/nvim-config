@@ -36,6 +36,16 @@ M.on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    -- Go to definition in a vertical split
+    vim.keymap.set('n', 'gv', function()
+      vim.cmd('vsplit')
+      vim.lsp.buf.definition()
+    end, { noremap = true, silent = true, desc = "Go to definition in vertical split" })
+    -- Go to definition in a horizontal split
+    vim.keymap.set('n', 'gx', function()
+      vim.cmd('split')
+      vim.lsp.buf.definition()
+    end, { noremap = true, silent = true, desc = "Go to definition in horizontal split" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)

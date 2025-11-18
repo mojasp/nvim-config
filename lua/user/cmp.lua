@@ -31,6 +31,13 @@ cmp.setup({
             maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
         }),
     },
+
+      view = {
+        docs = {
+          auto_open = false,   -- don’t pop docs automatically
+        },
+      },
+
     mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
@@ -46,8 +53,15 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-v>"] = cmp.mapping.scroll_docs(4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = function()
+          if cmp.visible_docs() then
+            cmp.close_docs()
+          else
+            cmp.open_docs()
+          end
+        end,
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
         ["<CR>"] = cmp.mapping.confirm({

@@ -6,7 +6,7 @@ end
 -- Completion kinds
 local servers = {
     -- "clangd", configured separately later
-    -- "pylsp",
+    "pyright",
     --lua_ls", configured separately later
     "eslint",
     "bashls",
@@ -19,7 +19,7 @@ local servers = {
     "ts_ls",
     "html",
     "cmake",
-    "rust_analyzer"
+    "rust_analyzer",
     -- "gopls",
 }
 

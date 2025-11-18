@@ -111,6 +111,8 @@ return packer.startup(function(use)
     use("iruzo/matrix-nvim")
     use({ "catppuccin/nvim", as = "catppuccin" })
 
+    use('glench/vim-jinja2-syntax')
+
     -- fzf - this is only used for vimtex integration
     use({
         "junegunn/fzf",

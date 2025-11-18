@@ -84,3 +84,12 @@ vim.api.nvim_create_user_command(
     end,
     {nargs = 0}
 )
+
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = vim.api.nvim_create_augroup("FugitiveJump", { clear = true }),
+  pattern = "fugitive:///*",
+  callback = function()
+    vim.cmd("normal! 5j")
+  end,
+})
