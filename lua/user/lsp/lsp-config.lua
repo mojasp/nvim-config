@@ -20,6 +20,7 @@ local servers = {
     "html",
     "cmake",
     "rust_analyzer",
+
     -- "gopls",
 }
 

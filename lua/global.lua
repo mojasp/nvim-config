@@ -86,6 +86,7 @@ vim.api.nvim_create_user_command(
 )
 
 
+-- immediately jump to the relevant section in :Git window
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("FugitiveJump", { clear = true }),
   pattern = "fugitive:///*",
