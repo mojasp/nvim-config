@@ -29,5 +29,17 @@ else
         colorscheme kanagawa
         set guifont=JetBrains\ Mono:h11
         " hi Normal guibg=NONE ctermbg=NONE
-    ]])
+        highlight Normal guibg=NONE ctermbg=NONE
+        highlight NormalNC guibg=NONE ctermbg=NONE
+        highlight EndOfBuffer guibg=NONE ctermbg=NONE
+
+        highlight SignColumn guibg=NONE ctermbg=NONE
+        highlight VertSplit guibg=NONE ctermbg=NONE
+        highlight StatusLine guibg=NONE ctermbg=NONE
+        highlight StatusLineNC guibg=NONE ctermbg=NONE
+        highlight LineNr ctermbg=NONE guibg=NONE
+        highlight CursorLineNr ctermbg=NONE guibg=NONE
+        highlight FoldColumn ctermbg=NONE guibg=NONE
+        highlight SignColumn ctermbg=NONE guibg=NONE
+        ]])
 end

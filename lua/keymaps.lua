@@ -52,7 +52,6 @@ keymap("i", "<C-a>", "<Esc>A;<CR>", opts)
 
 --mappings for building and cleaning
 keymap("n", "<leader>m", ":Make!<CR><CR>", opts)
-keymap("n", "<leader>c", ":Make! clean<CR><CR>", opts)
 
 function toggle_quickfix()
   for _, win in ipairs(vim.fn.getwininfo()) do

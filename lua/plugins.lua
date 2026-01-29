@@ -188,7 +188,13 @@ return packer.startup(function(use)
         end
     }
     --vimiwiki & taskwarrior
-    use("vimwiki/vimwiki")
+    use({"vimwiki/vimwiki", 
+  init = function()
+    vim.g.vimwiki_key_mappings = {
+      all_maps = 0,   -- all the mappings so broken ffs
+    }
+  end,
+    })
     use("tools-life/taskwiki") --taskwarrior support for vimwiki
     --disable - lag?
     --use({
@@ -206,7 +212,33 @@ return packer.startup(function(use)
     ---better quickfix; including preview and fzf support (press zf in qf win)
     -- use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
-    use("tpope/vim-vinegar") -- navigation with -
+    -- use("tpope/vim-vinegar") -- navigation with -
+    -- try oil istead
+    use({"stevearc/oil.nvim",
+        config = function() 
+            require("oil").setup({
+  use_default_keymaps = false,
+  -- These are the default keymaps, commented out only what i want
+  keymaps = {
+    ["g?"] = { "actions.show_help", mode = "n" },
+    ["<CR>"] = "actions.select",
+    ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+    ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
+    ["<C-p>"] = "actions.preview",
+    ["<C-q>"] = { "actions.close", mode = "n" },
+    -- ["<C-l>"] = "actions.refresh",
+    ["-"] = { "actions.parent", mode = "n" },
+    ["_"] = { "actions.open_cwd", mode = "n" },
+    ["`"] = { "actions.cd", mode = "n" },
+    ["gs"] = { "actions.change_sort", mode = "n" },
+    ["gx"] = "actions.open_external",
+    ["g."] = { "actions.toggle_hidden", mode = "n" },
+  },
+            })
+            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+        end,
+
+        }) 
 
     -----Git------
     use({
@@ -214,14 +246,6 @@ return packer.startup(function(use)
         config = function()
             require("gitsigns").setup()
             require("scrollbar.handlers.gitsigns").setup()
-        end,
-    })
-
-    --gitsigns does the same but is too slow. Adds virtual text blame with :GitBlameToggle
-    use({
-        "f-person/git-blame.nvim",
-        config = function()
-            vim.cmd("let g:gitblame_enabled=0")
         end,
     })
 

@@ -30,7 +30,7 @@ local autopep8 = helpers.make_builtin({
   factory = helpers.formatter_factory,
 })
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null_ls.setup({
   debug = true,
