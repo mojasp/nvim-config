@@ -36,165 +36,341 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local pins = require("plugin_pins")
-
-local function pin(repo, spec)
-    spec = spec or {}
-    spec[1] = repo
-
-    local p = pins[repo]
-    if not p then
-        error("Missing plugin pin for " .. repo .. ". Run tools/update-plugin-pins.py")
-    end
-
-    spec.pin = true
-    spec.commit = p.commit
-
-    -- Only set tag when the repo actually has a usable tag/release.
-    if p.tag then
-        spec.tag = p.tag
-    end
-
-    return spec
-end
-
 require("lazy").setup({
     spec = {
         -- nvimlsp plugins
-        pin("mason-org/mason.nvim"),
-        pin("mason-org/mason-lspconfig.nvim", {
+        {
+            "mason-org/mason.nvim",
+            -- Pin: release; tag v2.3.0; checkout date 2026-05-22; commit bb639d4bf385a4d89f478b83af4d770be05ab7eb
+            tag = "v2.3.0",
+            commit = "bb639d4bf385a4d89f478b83af4d770be05ab7eb",
+            pin = true,
+        },
+        {
+            "mason-org/mason-lspconfig.nvim",
+            -- Pin: release; tag v2.2.0; checkout date 2026-04-23; commit 0c2823e0418f3d9230ff8b201c976e84de1cb401
+            tag = "v2.2.0",
+            commit = "0c2823e0418f3d9230ff8b201c976e84de1cb401",
+            pin = true,
             dependencies = {
                 "mason-org/mason.nvim",
                 "neovim/nvim-lspconfig",
             },
-        }),
-        pin("neovim/nvim-lspconfig"),
-        pin("nvimtools/none-ls.nvim"),
-        pin("SmiteshP/nvim-navic", {
+        
+        },
+        {
+            "neovim/nvim-lspconfig",
+            -- Pin: release; tag v2.9.0; checkout date 2026-05-07; commit f6738ef65dabade340b473d4ff2a1ad3352c10e7
+            tag = "v2.9.0",
+            commit = "f6738ef65dabade340b473d4ff2a1ad3352c10e7",
+            pin = true,
+        },
+        {
+            "nvimtools/none-ls.nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2026-06-02; commit 01f8e62ea11603e59ad9ff7afcfa94fd183f76d6
+            commit = "01f8e62ea11603e59ad9ff7afcfa94fd183f76d6",
+            pin = true,
+        },
+        {
+            "SmiteshP/nvim-navic",
+            -- Pin: default-branch:master; no release/tag; checkout date 2025-12-29; commit f5eba192f39b453675d115351808bd51276d9de5
+            commit = "f5eba192f39b453675d115351808bd51276d9de5",
+            pin = true,
             config = function()
                 require("nvim-navic").setup()
             end,
-        }),
+        
+        },
 
         --  autocomplete plugins
-        pin("hrsh7th/nvim-cmp"),
-        pin("hrsh7th/cmp-omni"),
-        pin("hrsh7th/cmp-nvim-lsp"),
-        pin("hrsh7th/cmp-buffer"),
-        pin("hrsh7th/cmp-path"),
-        pin("hrsh7th/cmp-cmdline"),
-        pin("onsails/lspkind-nvim"),
-        pin("saadparwaiz1/cmp_luasnip", {
+        {
+            "hrsh7th/nvim-cmp",
+            -- Pin: release; tag v0.0.2; checkout date 2025-01-07; commit 8c82d0bd31299dbff7f8e780f5e06d2283de9678
+            tag = "v0.0.2",
+            commit = "8c82d0bd31299dbff7f8e780f5e06d2283de9678",
+            pin = true,
+        },
+        {
+            "hrsh7th/cmp-omni",
+            -- Pin: default-branch:main; no release/tag; checkout date 2023-09-24; commit 4ef610bbd85a5ee4e97e09450c0daecbdc60de86
+            commit = "4ef610bbd85a5ee4e97e09450c0daecbdc60de86",
+            pin = true,
+        },
+        {
+            "hrsh7th/cmp-nvim-lsp",
+            -- Pin: default-branch:main; no release/tag; checkout date 2025-11-13; commit cbc7b02bb99fae35cb42f514762b89b5126651ef
+            commit = "cbc7b02bb99fae35cb42f514762b89b5126651ef",
+            pin = true,
+        },
+        {
+            "hrsh7th/cmp-buffer",
+            -- Pin: default-branch:main; no release/tag; checkout date 2025-04-01; commit b74fab3656eea9de20a9b8116afa3cfc4ec09657
+            commit = "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
+            pin = true,
+        },
+        {
+            "hrsh7th/cmp-path",
+            -- Pin: default-branch:main; no release/tag; checkout date 2025-07-30; commit c642487086dbd9a93160e1679a1327be111cbc25
+            commit = "c642487086dbd9a93160e1679a1327be111cbc25",
+            pin = true,
+        },
+        {
+            "hrsh7th/cmp-cmdline",
+            -- Pin: default-branch:main; no release/tag; checkout date 2025-05-18; commit d126061b624e0af6c3a556428712dd4d4194ec6d
+            commit = "d126061b624e0af6c3a556428712dd4d4194ec6d",
+            pin = true,
+        },
+        {
+            "onsails/lspkind-nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2026-01-29; commit c7274c48137396526b59d86232eabcdc7fed8a32
+            commit = "c7274c48137396526b59d86232eabcdc7fed8a32",
+            pin = true,
+        },
+        {
+            "saadparwaiz1/cmp_luasnip",
+            -- Pin: default-branch:master; no release/tag; checkout date 2024-11-04; commit 98d9cb5c2c38532bd9bdb481067b20fea8f32e90
+            commit = "98d9cb5c2c38532bd9bdb481067b20fea8f32e90",
+            pin = true,
             dependencies = {
                 "hrsh7th/nvim-cmp",
                 "L3MON4D3/LuaSnip",
             },
-        }),
-        pin("L3MON4D3/LuaSnip", {
+        
+        },
+        {
+            "L3MON4D3/LuaSnip",
+            -- Pin: release; tag v2.5.0; checkout date 2026-04-05; commit 642b0c595e11608b4c18219e93b88d7637af27bc
+            tag = "v2.5.0",
+            commit = "642b0c595e11608b4c18219e93b88d7637af27bc",
+            pin = true,
             build = "make install_jsregexp",
-        }),
-        pin("honza/vim-snippets"),
+        
+        },
+        {
+            "honza/vim-snippets",
+            -- Pin: release; tag 1.0.0; checkout date 2014-05-16; commit 4ed409154bcaa32fba6fd153cc0c915e44982872
+            tag = "1.0.0",
+            commit = "4ed409154bcaa32fba6fd153cc0c915e44982872",
+            pin = true,
+        },
 
         -- treesitter plugins
-        pin("nvim-treesitter/nvim-treesitter", {
+        {
+            "nvim-treesitter/nvim-treesitter",
+            -- Pin: default-branch:main; no release/tag; checkout date 2026-04-03; commit 4916d6592ede8c07973490d9322f187e07dfefac
+            commit = "4916d6592ede8c07973490d9322f187e07dfefac",
+            pin = true,
             build = ":TSUpdate",
-        }),
-        --    use("nvim-treesitter/nvim-treesitter-context") -- redundant with navic
-        pin("danymat/neogen"),
 
-        pin("hedyhli/outline.nvim", {
+        },
+        --    use("nvim-treesitter/nvim-treesitter-context") -- redundant with navic
+        {
+            "danymat/neogen",
+            -- Pin: tag; tag 2.20.0; checkout date 2024-12-27; commit b2e78708876f4da507839726816010a68e33fec8
+            tag = "2.20.0",
+            commit = "b2e78708876f4da507839726816010a68e33fec8",
+            pin = true,
+        },
+
+        {
+            "hedyhli/outline.nvim",
+            -- Pin: release; tag v1.2.0; checkout date 2026-01-31; commit ead1820d49c8e79ce89cab1c2c318981b695c9d2
+            tag = "v1.2.0",
+            commit = "ead1820d49c8e79ce89cab1c2c318981b695c9d2",
+            pin = true,
             config = function()
                 require("outline").setup({})
             end,
-        }),
+        
+        },
 
         -- colorscheme
-        pin('NLKNguyen/papercolor-theme'),
-        pin("rebelot/kanagawa.nvim"),
-        pin("iruzo/matrix-nvim"),
-        pin("catppuccin/nvim", {
+        {
+            "NLKNguyen/papercolor-theme",
+            -- Pin: release; tag v1.0; checkout date 2020-12-04; commit 20f1da518d09868bbf3c58ff04f2ae24b1edf23e
+            tag = "v1.0",
+            commit = "20f1da518d09868bbf3c58ff04f2ae24b1edf23e",
+            pin = true,
+        },
+        {
+            "rebelot/kanagawa.nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2026-05-10; commit bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3
+            commit = "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
+            pin = true,
+        },
+        {
+            "iruzo/matrix-nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2023-03-23; commit 5fafe6b440d08c1070e3c4c4cb9d648436d5d867
+            commit = "5fafe6b440d08c1070e3c4c4cb9d648436d5d867",
+            pin = true,
+        },
+        {
+            "catppuccin/nvim",
+            -- Pin: release; tag v2.0.0; checkout date 2026-04-02; commit 605b4603797de970e9f3a4238c199c850da03186
+            tag = "v2.0.0",
+            commit = "605b4603797de970e9f3a4238c199c850da03186",
+            pin = true,
             name = "catppuccin",
-        }),
+        
+        },
 
-        pin('glench/vim-jinja2-syntax'),
+        {
+            "glench/vim-jinja2-syntax",
+            -- Pin: default-branch:master; no release/tag; checkout date 2021-06-22; commit 2c17843b074b06a835f88587e1023ceff7e2c7d1
+            commit = "2c17843b074b06a835f88587e1023ceff7e2c7d1",
+            pin = true,
+        },
 
         -- fzf - this is only used for vimtex integration
-        pin("junegunn/fzf", {
+        {
+            "junegunn/fzf",
+            -- Pin: release; tag v0.73.1; checkout date 2026-05-25; commit ce4bef75954bebd87e0886435bcf8c6904328ab0
+            tag = "v0.73.1",
+            commit = "ce4bef75954bebd87e0886435bcf8c6904328ab0",
+            pin = true,
             build = function()
                 vim.cmd([[call fzf#install()]])
             end,
-        }),
+        
+        },
 
         -- telescope
-        pin("nvim-lua/plenary.nvim"), -- Useful lua functions used ny lots of plugins
-        pin("nvim-telescope/telescope.nvim", {
+        {
+            "nvim-lua/plenary.nvim",
+            -- Pin: tag; tag v0.1.4; checkout date 2023-10-11; commit 50012918b2fc8357b87cff2a7f7f0446e47da174
+            tag = "v0.1.4",
+            commit = "50012918b2fc8357b87cff2a7f7f0446e47da174",
+            pin = true,
+        }, -- Useful lua functions used ny lots of plugins
+        {
+            "nvim-telescope/telescope.nvim",
+            -- Pin: release; tag v0.2.1; checkout date 2025-12-31; commit 3333a52ff548ba0a68af6d8da1e54f9cd96e9179
+            tag = "v0.2.1",
+            commit = "3333a52ff548ba0a68af6d8da1e54f9cd96e9179",
+            pin = true,
             branch = "0.1.x",
             dependencies = {
                 "nvim-lua/plenary.nvim",
             },
-        }),
-        pin("nvim-telescope/telescope-file-browser.nvim", {
+        
+        },
+        {
+            "nvim-telescope/telescope-file-browser.nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2025-08-05; commit 3610dc7dc91f06aa98b11dca5cc30dfa98626b7e
+            commit = "3610dc7dc91f06aa98b11dca5cc30dfa98626b7e",
+            pin = true,
             dependencies = {
                 "nvim-telescope/telescope.nvim",
             },
-        }),
+        
+        },
         -- use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-        pin('nvim-telescope/telescope-fzf-native.nvim', {
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2026-05-06; commit b25b749b9db64d375d782094e2b9dce53ad53a40
+            commit = "b25b749b9db64d375d782094e2b9dce53ad53a40",
+            pin = true,
             build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
             dependencies = {
                 "nvim-telescope/telescope.nvim",
             },
-        }),
-        pin("nvim-telescope/telescope-ui-select.nvim", {
+        
+        },
+        {
+            "nvim-telescope/telescope-ui-select.nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2023-12-04; commit 6e51d7da30bd139a6950adf2a47fda6df9fa06d2
+            commit = "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",
+            pin = true,
             dependencies = {
                 "nvim-telescope/telescope.nvim",
             },
-        }),
-        pin("benfowler/telescope-luasnip.nvim", {
+        
+        },
+        {
+            "benfowler/telescope-luasnip.nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2024-12-14; commit 07a2a2936a7557404c782dba021ac0a03165b343
+            commit = "07a2a2936a7557404c782dba021ac0a03165b343",
+            pin = true,
             dependencies = {
                 "nvim-telescope/telescope.nvim",
                 "L3MON4D3/LuaSnip",
             },
-        }),
+        
+        },
 
-        pin("nvim-telescope/telescope-bibtex.nvim", {
+        {
+            "nvim-telescope/telescope-bibtex.nvim",
+            -- Pin: default-branch:master; no release/tag; checkout date 2024-03-28; commit 289a6f86ebec06e8ae1590533b732b9981d84900
+            commit = "289a6f86ebec06e8ae1590533b732b9981d84900",
+            pin = true,
             dependencies = {
                 "nvim-telescope/telescope.nvim",
             },
             config = function()
                 require("telescope").load_extension("bibtex")
             end,
-        }),
+        
+        },
 
         ------------------------------------
         ----------Utilities-----------------
         ------------------------------------
         ------- Coding utils -------
-        pin("tpope/vim-dispatch"),
+        {
+            "tpope/vim-dispatch",
+            -- Pin: tag; tag v1.8; checkout date 2019-06-09; commit 488940870ab478cc443b06d5a62fea7ab999eabf
+            tag = "v1.8",
+            commit = "488940870ab478cc443b06d5a62fea7ab999eabf",
+            pin = true,
+        },
 
         --- Language specific
-        pin("vim-scripts/a.vim"), -- switch from .h to .c via :A
+        {
+            "vim-scripts/a.vim",
+            -- Pin: tag; tag 2.18; checkout date 2010-11-06; commit 2cbe946206ec622d9d8cf2c99317f204c4d41885
+            tag = "2.18",
+            commit = "2cbe946206ec622d9d8cf2c99317f204c4d41885",
+            pin = true,
+        }, -- switch from .h to .c via :A
 
         -- R language support
-        pin("jalvesaq/Nvim-R", {
+        {
+            "jalvesaq/Nvim-R",
+            -- Pin: release; tag v1.0.0; checkout date 2026-05-02; commit 82b570035e5502ac936e9c4cf8b6709469377253
+            tag = "v1.0.0",
+            commit = "82b570035e5502ac936e9c4cf8b6709469377253",
+            pin = true,
             config = function()
                 -- vim.cmd("let R_external_term = 1")
             end,
-        }),
+        
+        },
 
         --vimiwiki & taskwarrior
-        pin("vimwiki/vimwiki", {
+        {
+            "vimwiki/vimwiki",
+            -- Pin: release; tag v2024.01.24; checkout date 2024-01-25; commit fde35bb87e45abe930eebef5ab99a16289e53789
+            tag = "v2024.01.24",
+            commit = "fde35bb87e45abe930eebef5ab99a16289e53789",
+            pin = true,
             init = function()
                 vim.g.vimwiki_key_mappings = {
                     all_maps = 0,   -- all the mappings so broken ffs
                 }
             end,
-        }),
-        pin("tools-life/taskwiki", {
+        
+        },
+        {
+            "tools-life/taskwiki",
+            -- Pin: tag; tag 1.0.0; checkout date 2019-03-26; commit 056d9e82f57ee8d897151ff42ce7bc05fa55e7b8
+            tag = "1.0.0",
+            commit = "056d9e82f57ee8d897151ff42ce7bc05fa55e7b8",
+            pin = true,
             dependencies = {
                 "vimwiki/vimwiki",
             },
-        }), --taskwarrior support for vimwiki
+        
+        }, --taskwarrior support for vimwiki
 
         --disable - lag?
         --use({
@@ -206,7 +382,13 @@ require("lazy").setup({
         --})
 
         --vimtex important
-        pin("lervag/vimtex"),
+        {
+            "lervag/vimtex",
+            -- Pin: release; tag v2.17; checkout date 2025-10-04; commit 2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c
+            tag = "v2.17",
+            commit = "2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c",
+            pin = true,
+        },
 
         ----- MISC -----
         ---better quickfix; including preview and fzf support (press zf in qf win)
@@ -214,7 +396,12 @@ require("lazy").setup({
 
         -- use("tpope/vim-vinegar") -- navigation with -
         -- try oil istead
-        pin("stevearc/oil.nvim", {
+        {
+            "stevearc/oil.nvim",
+            -- Pin: release; tag v2.16.0; checkout date 2026-05-24; commit 17c0a8faaf48298a0c0cfb0d757c0eaee4ff7a32
+            tag = "v2.16.0",
+            commit = "17c0a8faaf48298a0c0cfb0d757c0eaee4ff7a32",
+            pin = true,
             config = function()
                 require("oil").setup({
                     use_default_keymaps = false,
@@ -237,10 +424,16 @@ require("lazy").setup({
                 })
                 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
             end,
-        }),
+        
+        },
 
         -----Git------
-        pin("lewis6991/gitsigns.nvim", {
+        {
+            "lewis6991/gitsigns.nvim",
+            -- Pin: release; tag v2.1.0; checkout date 2026-03-26; commit a462f416e2ce4744531c6256252dee99a7d34a83
+            tag = "v2.1.0",
+            commit = "a462f416e2ce4744531c6256252dee99a7d34a83",
+            pin = true,
             dependencies = {
                 "petertriho/nvim-scrollbar",
             },
@@ -248,19 +441,36 @@ require("lazy").setup({
                 require("gitsigns").setup()
                 require("scrollbar.handlers.gitsigns").setup()
             end,
-        }),
+        
+        },
 
         --general git
-        pin("tpope/vim-fugitive"),
+        {
+            "tpope/vim-fugitive",
+            -- Pin: tag; tag v3.7; checkout date 2022-06-07; commit 96c1009fcf8ce60161cc938d149dd5a66d570756
+            tag = "v3.7",
+            commit = "96c1009fcf8ce60161cc938d149dd5a66d570756",
+            pin = true,
+        },
 
         -- depends on fugitive. :Flog gives git history
-        pin("rbong/vim-flog", {
+        {
+            "rbong/vim-flog",
+            -- Pin: release; tag v3.0.0; checkout date 2024-09-06; commit e7a0e9f6f26d154b1e550de94414ea71e354c563
+            tag = "v3.0.0",
+            commit = "e7a0e9f6f26d154b1e550de94414ea71e354c563",
+            pin = true,
             dependencies = {
                 "tpope/vim-fugitive",
             },
-        }),
+        
+        },
 
-        pin("sindrets/diffview.nvim", {
+        {
+            "sindrets/diffview.nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2024-06-13; commit 4516612fe98ff56ae0415a259ff6361a89419b0a
+            commit = "4516612fe98ff56ae0415a259ff6361a89419b0a",
+            pin = true,
             dependencies = {
                 "nvim-lua/plenary.nvim",
             },
@@ -274,18 +484,34 @@ require("lazy").setup({
                     },
                 })
             end,
-        }),
+        
+        },
 
-        pin("nvim-lualine/lualine.nvim", {
+        {
+            "nvim-lualine/lualine.nvim",
+            -- Pin: tag; tag compat-nvim-0.6; checkout date 2023-10-18; commit c55af3b39cc50109aa75d445e38f2089b023e5df
+            tag = "compat-nvim-0.6",
+            commit = "c55af3b39cc50109aa75d445e38f2089b023e5df",
+            pin = true,
             dependencies = {
                 "kyazdani42/nvim-web-devicons",
             },
-        }),
+        
+        },
 
-        pin("aserowy/tmux.nvim"),
+        {
+            "aserowy/tmux.nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2026-04-13; commit 32ceaf2793582955ef9576809730878c4d2d9426
+            commit = "32ceaf2793582955ef9576809730878c4d2d9426",
+            pin = true,
+        },
 
         -- will autoset directoryy
-        pin("ahmedkhalf/project.nvim", {
+        {
+            "ahmedkhalf/project.nvim",
+            -- Pin: default-branch:main; no release/tag; checkout date 2023-04-04; commit 8c6bad7d22eef1b71144b401c9f74ed01526a4fb
+            commit = "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
+            pin = true,
             config = function()
                 require("project_nvim").setup({
                     ignore_lsp = { "null-ls", "r-language-server" },
@@ -295,17 +521,36 @@ require("lazy").setup({
                     exclude_dirs = { "~" },
                 })
             end,
-        }),
+        
+        },
 
-        pin("windwp/nvim-autopairs"),
-        pin("junegunn/vim-easy-align"),
+        {
+            "windwp/nvim-autopairs",
+            -- Pin: release; tag 0.10.0; checkout date 2025-09-26; commit 23320e75953ac82e559c610bec5a90d9c6dfa743
+            tag = "0.10.0",
+            commit = "23320e75953ac82e559c610bec5a90d9c6dfa743",
+            pin = true,
+        },
+        {
+            "junegunn/vim-easy-align",
+            -- Pin: tag; tag 2.10.0; checkout date 2015-10-01; commit 0db4ea6132110631ec678a99a82aa49a0686ae65
+            tag = "2.10.0",
+            commit = "0db4ea6132110631ec678a99a82aa49a0686ae65",
+            pin = true,
+        },
 
-        pin("kylechui/nvim-surround", {
+        {
+            "kylechui/nvim-surround",
+            -- Pin: release; tag v4.0.5; checkout date 2026-05-02; commit 2e93e154de9ff326def6480a4358bfc149d5da2c
+            tag = "v4.0.5",
+            commit = "2e93e154de9ff326def6480a4358bfc149d5da2c",
+            pin = true,
             config = function()
                 require("nvim-surround").setup({
                 })
             end,
-        }),
+        
+        },
 
         -------------------------------
         ------User Interface-----------
@@ -318,31 +563,53 @@ require("lazy").setup({
         --         })
         --     end,
         --})
-        pin("kyazdani42/nvim-web-devicons", {
+        {
+            "kyazdani42/nvim-web-devicons",
+            -- Pin: tag; tag nerd-v3.2-compat; checkout date 2024-12-07; commit 21417212f640a1dad28a1408f04468819848f5e7
+            tag = "nerd-v3.2-compat",
+            commit = "21417212f640a1dad28a1408f04468819848f5e7",
+            pin = true,
             config = function()
                 require("nvim-web-devicons").setup()
             end,
-        }),
+        
+        },
 
         --visual guides for whitespaces, quite ncie
-        pin("lukas-reineke/indent-blankline.nvim", {
+        {
+            "lukas-reineke/indent-blankline.nvim",
+            -- Pin: release; tag v3.9.1; checkout date 2026-02-17; commit d28a3f70721c79e3c5f6693057ae929f3d9c0a03
+            tag = "v3.9.1",
+            commit = "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
+            pin = true,
             main = "ibl",
             opts = {},
-        }),
+        
+        },
 
         -- color picker and utilities
-        pin("NvChad/nvim-colorizer.lua", {
+        {
+            "NvChad/nvim-colorizer.lua",
+            -- Pin: default-branch:master; no release/tag; checkout date 2026-05-30; commit 664c0b7cea1de71f8b65dfe951b7996fc3e6ccde
+            commit = "664c0b7cea1de71f8b65dfe951b7996fc3e6ccde",
+            pin = true,
             config = function()
                 require("colorizer").setup()
             end,
-        }),
+        
+        },
 
         --rh scrollbar
-        pin("petertriho/nvim-scrollbar", {
+        {
+            "petertriho/nvim-scrollbar",
+            -- Pin: default-branch:main; no release/tag; checkout date 2025-11-17; commit f8e87b96cd6362ef8579be456afee3b38fd7e2a8
+            commit = "f8e87b96cd6362ef8579be456afee3b38fd7e2a8",
+            pin = true,
             config = function()
                 require("scrollbar").setup()
             end,
-        }),
+        
+        },
 
         -- -------------------------------
         -- ------Debugger-----------------

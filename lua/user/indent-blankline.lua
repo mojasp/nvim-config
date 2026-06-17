@@ -1,8 +1,11 @@
 vim.opt.list = true
 
+vim.api.nvim_set_hl(0, "IblIndent", { fg = "#3b4048", nocombine = true })
+vim.api.nvim_set_hl(0, "IblScope", { fg = "#c678dd", nocombine = true })
+
 require("ibl").setup({
-    scope = {
-        enabled = true,
+    indent = {
+        highlight = "IblIndent",
     },
     exclude = {
         filetypes = {
@@ -14,8 +17,5 @@ require("ibl").setup({
             "lazy",
             "NvimTree",
         },
-    },
-    whitespace = {
-        remove_blankline_trail = true,
     },
 })
