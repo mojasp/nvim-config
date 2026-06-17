@@ -14,14 +14,6 @@ treesitter_configs.setup({
 	-- ensure_installed = "all",
 	sync_install = true,
 	ignore_install = { "phpdoc", "latex" }, -- List of parsers to ignore installation
-	refactor = {
-		highlight_definitions = {
-			enable = true,
-			-- Set to false if you have an `updatetime` of ~100.
-			clear_on_cursor_move = true,
-		},
-		highlight_current_scope = { enable = false },
-	},
 	playground = {
 		enable = true,
 	},
