@@ -352,25 +352,47 @@ require("lazy").setup({
             -- Pin: release; tag v2024.01.24; checkout date 2024-01-25; commit fde35bb87e45abe930eebef5ab99a16289e53789
             tag = "v2024.01.24",
             commit = "fde35bb87e45abe930eebef5ab99a16289e53789",
-            pin = true,
             init = function()
-                vim.g.vimwiki_key_mappings = {
-                    all_maps = 0,   -- all the mappings so broken ffs
+                vim.g.vimwiki_list = {
+                    {
+                        path = "~/Notes",
+                        syntax = "markdown",
+                        ext = ".md",
+                        custom_wiki2html = "~/.local/scripts/vimwiki_convert.py",
+                    },
                 }
+
+                vim.g.vimwiki_ext2syntax = {
+                    [".md"] = "markdown",
+                    [".markdown"] = "markdown",
+                    [".mdown"] = "markdown",
+                }
+
+                vim.g.vimwiki_markdown_link_ext = 1
             end,
-        
+            config = function()
+                vim.keymap.set("n", "<leader>ww", "<cmd>VimwikiIndex<CR>", {
+                    noremap = true,
+                    silent = true,
+                    desc = "Open Vimwiki index",
+                })
+            end,
         },
-        {
-            "tools-life/taskwiki",
-            -- Pin: tag; tag 1.0.0; checkout date 2019-03-26; commit 056d9e82f57ee8d897151ff42ce7bc05fa55e7b8
-            tag = "1.0.0",
-            commit = "056d9e82f57ee8d897151ff42ce7bc05fa55e7b8",
-            pin = true,
-            dependencies = {
-                "vimwiki/vimwiki",
-            },
-        
-        }, --taskwarrior support for vimwiki
+        -- This kind of broke, i guess we would have to update the plugin or sth but im not usingit anyways rn
+        -- {
+        --     "tools-life/taskwiki",
+        --     -- Pin: tag; tag 1.0.0; checkout date 2019-03-26; commit 056d9e82f57ee8d897151ff42ce7bc05fa55e7b8
+        --     tag = "1.0.0",
+        --     commit = "056d9e82f57ee8d897151ff42ce7bc05fa55e7b8",
+        --     dependencies = {
+        --         "vimwiki/vimwiki",
+        --     },
+        --     init = function()
+        --         vim.g.taskwiki_markup_syntax = "markdown"
+        --         vim.g.taskwiki_disable_concealcorser = 1
+        --         vim.g.taskwiki_sort_order = "status+,end+,priority+,project+"
+        --     end,
+        -- },
 
         --disable - lag?
         --use({
@@ -506,7 +528,7 @@ require("lazy").setup({
             pin = true,
         },
 
-        -- autoset directoryy to proj root
+        -- -- autoset directoryy to proj root
         {
             "DrKJeff16/project.nvim",
             tag =  "v5.0.0-1",
@@ -520,7 +542,7 @@ require("lazy").setup({
                     exclude_dirs = { "~" },
                 })
             end,
-        
+
         },
 
         {
@@ -580,7 +602,6 @@ require("lazy").setup({
             -- Pin: release; tag v3.9.1; checkout date 2026-02-17; commit d28a3f70721c79e3c5f6693057ae929f3d9c0a03
             tag = "v3.9.1",
             commit = "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
-            pin = true,
             main = "ibl",
             opts = {},
         

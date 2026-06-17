@@ -3,6 +3,9 @@ vim.loader.enable()
 -- disable shadafile while sourcing config
 vim.opt.shadafile = "NONE"
 
+vim.g.mapleader = ","
+vim.g.maplocalleader = " "
+
 require('global')
 require('plugins')
 require('keymaps')
