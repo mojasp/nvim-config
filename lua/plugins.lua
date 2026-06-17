@@ -107,6 +107,7 @@ return packer.startup(function(use)
     --  deprecated plugin. TODO configure and use: https://github.com/hedyhli/outline.nvim
 
     -- colorscheme
+    use('NLKNguyen/papercolor-theme')
     use("rebelot/kanagawa.nvim")
     use("iruzo/matrix-nvim")
     use({ "catppuccin/nvim", as = "catppuccin" })

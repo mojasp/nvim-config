@@ -6,6 +6,12 @@ require("telescope").setup({
         },
     },
 
+      pickers = {
+        oldfiles = {
+          include_current_session = true,
+        },
+      },
+
     extensions = {
         ["ui-select"] = {
             require("telescope.themes").get_dropdown({

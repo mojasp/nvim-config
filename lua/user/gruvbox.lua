@@ -17,6 +17,8 @@
 
 if vim.g.neovide then
     vim.cmd([[
+        --light
+
         colorscheme kanagawa
         set guifont=juliamono:h8
         let g:neovide_transparency=0.85
@@ -26,7 +28,13 @@ if vim.g.neovide then
     ]])
 else
     vim.cmd([[
-        colorscheme kanagawa
+        set t_Co=256
+
+        "set background=light
+        "colorschem PaperColor
+         set background=dark
+         colorscheme kanagawa
+
         set guifont=JetBrains\ Mono:h11
         " hi Normal guibg=NONE ctermbg=NONE
         highlight Normal guibg=NONE ctermbg=NONE

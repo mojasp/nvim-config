@@ -30,14 +30,22 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.cmdheight = 1
 
-vim.cmd([[
-    set splitright
-    set mouse=
 
-    """""" command completion """"""
-    set wildmenu
-    set wildmode=longest:full,full
-    set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db
+-- ""SHADA"""
+-- enable search history 
+-- keep globals disabled (!)
+-- keep globals disabled (!)
+-- 1k old files
+-- <50 line registers with up to 10kb per reg
+-- vim.opt.shada = "!,'1000,<50,s10"
+vim.cmd([[
+set splitright
+set mouse=
+
+"""""" command completion """"""
+set wildmenu
+set wildmode=longest:full,full
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db
 ]])
 
 -- Multiline search via S: searches for whitespace separated arguments 

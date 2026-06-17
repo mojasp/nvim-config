@@ -11,14 +11,14 @@ vim.g.maplocalleader = " "
 keymap("n", "<F3>", ":set hlsearch!<CR>", opts)
 
 -- --use [,{,],} from english layout -- note: changing layout instead is better..
-vim.keymap.set(allmodes, "ö", "[", opts)
-vim.keymap.set(allmodes, "Ö", "{", opts)
-vim.keymap.set(allmodes, "ä", "]", opts)
-vim.keymap.set(allmodes, "Ä", "}", opts)
-vim.keymap.set("n", "öö", "[[", opts)
-vim.keymap.set("n", "öä", "[]", opts)
-vim.keymap.set("n", "äö", "][", opts)
-vim.keymap.set("n", "ää", "]]", opts)
+-- vim.keymap.set(allmodes, "ö", "[", opts)
+-- vim.keymap.set(allmodes, "Ö", "{", opts)
+-- vim.keymap.set(allmodes, "ä", "]", opts)
+-- vim.keymap.set(allmodes, "Ä", "}", opts)
+-- vim.keymap.set("n", "öö", "[[", opts)
+-- vim.keymap.set("n", "öä", "[]", opts)
+-- vim.keymap.set("n", "äö", "][", opts)
+-- vim.keymap.set("n", "ää", "]]", opts)
 
 -- copy relative path to clipbard
 vim.keymap.set("n", "<leader>yp", function()
@@ -41,7 +41,7 @@ vim.keymap.set("i", "<C-j>", function()
     require("tmux").move_bottom()
 end, opts)
 --repeat last command in tmux pane that is located to the right
-vim.keymap.set("n", "<leader>rp", "<cmd>!tmux send-keys -t {last} UP Enter <cr><cr>")
+vim.keymap.set("n", "<leader>rp", ":w<CR> <cmd>!tmux send-keys -t {last} UP Enter <cr><cr>")
 
 --paste into new line
 keymap("n", "ü", ":pu<cr>", opts)
