@@ -15,19 +15,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.cmd([[packadd packer.nvim]])
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
-
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
+packer = require("packer")
 
 -- Have packer use a popup window
 packer.init({
@@ -76,18 +64,6 @@ return packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip")
     use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" })
     use("honza/vim-snippets")
-    -- packer.nvim
-    use({
-        "robitx/gp.nvim",
-        config = function()
-            local conf = {
-                -- For customization, refer to Install > Configuration in the Documentation/Readme
-            }
-            require("gp").setup(conf)
-
-            -- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
-        end,
-    })
 
     -- treesitter plugins
     use({
@@ -104,7 +80,6 @@ return packer.startup(function(use)
             require("outline").setup({})
         end,
     })
-    --  deprecated plugin. TODO configure and use: https://github.com/hedyhli/outline.nvim
 
     -- colorscheme
     use('NLKNguyen/papercolor-theme')
