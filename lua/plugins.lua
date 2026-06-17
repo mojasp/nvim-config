@@ -123,23 +123,8 @@ return packer.startup(function(use)
     ------------------------------------
     ----------Utilities-----------------
     ------------------------------------
-    --cache for faster startup
     ------- Coding utils -------
     use("tpope/vim-dispatch")
-    --  same for all the others
-    -- use({
-    --     "ojroques/nvim-buildme",
-    --     lock = true,
-    --     config = function()
-    --         require("buildme").setup({ wincmd = "vsplit" })
-    --     end,
-    -- })
-    -- use({
-    --     "neomake/neomake",
-    --     config = function()
-    --         vim.g.neomake_open_list = 1
-    --     end,
-    -- })
 
     --- Language specific
     use("vim-scripts/a.vim") -- switch from .h to .c via :A
@@ -150,19 +135,7 @@ return packer.startup(function(use)
             -- vim.cmd("let R_external_term = 1")
         end,
     })
-    use {
-        "sylvanfranklin/omni-preview.nvim",
-        requires = {
-            {
-                "toppair/peek.nvim",
-                run = "deno task --quiet build:fast"
-            }
-        },
-        config = function()
-            require("omni-preview").setup()
-            require("peek").setup({ app = "browser" }) -- this sets the app used to open the preview
-        end
-    }
+
     --vimiwiki & taskwarrior
     use({"vimwiki/vimwiki", 
   init = function()
