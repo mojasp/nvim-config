@@ -632,7 +632,7 @@ require("lazy").setup({
     lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
 
     install = {
-        missing = false,
+        missing = true,
         colorscheme = { "habamax" },
     },
     checker = {
