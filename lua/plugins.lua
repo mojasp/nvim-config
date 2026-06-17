@@ -506,15 +506,14 @@ require("lazy").setup({
             pin = true,
         },
 
-        -- will autoset directoryy
+        -- autoset directoryy to proj root
         {
-            "ahmedkhalf/project.nvim",
-            -- Pin: default-branch:main; no release/tag; checkout date 2023-04-04; commit 8c6bad7d22eef1b71144b401c9f74ed01526a4fb
-            commit = "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
+            "DrKJeff16/project.nvim",
+            tag =  "v5.0.0-1",
             pin = true,
             config = function()
-                require("project_nvim").setup({
-                    ignore_lsp = { "null-ls", "r-language-server" },
+                require("project").setup({
+                    lsp = { ignore = { "null-ls", "r-language-server" } },
                     -- When set to false, you will get a message when project.nvim changes your
                     -- directory.
                     silent_chdir = true,

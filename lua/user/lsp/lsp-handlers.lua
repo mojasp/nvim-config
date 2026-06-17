@@ -20,11 +20,6 @@ M.setup = function()
 
     vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-
-    vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 end
 
 M.on_attach = function(client, bufnr)
@@ -46,10 +41,14 @@ M.on_attach = function(client, bufnr)
       vim.cmd('split')
       vim.lsp.buf.definition()
     end, { noremap = true, silent = true, desc = "Go to definition in horizontal split" })
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+    vim.keymap.set("n", "K", function()
+        vim.lsp.buf.hover({ border = "rounded" })
+    end, bufopts)
 
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set("n", "<C-s>", function()
+        vim.lsp.buf.signature_help({ border = "rounded" })
+    end, bufopts)
     vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<space>wl", function()
